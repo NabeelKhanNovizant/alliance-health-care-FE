@@ -22,6 +22,7 @@ import { CaseProblemsComponent } from './modules/case-problems/case-problems.com
 import { CaseGoalsComponent } from './modules/case-goals/case-goals.component';
 import { CaseMilestonesComponent } from './modules/case-milestones/case-milestones.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CasePopupComponent } from './modules/case-popup/case-popup.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { HttpClientModule } from '@angular/common/http';
     CaseProblemsComponent,
     CaseGoalsComponent,
     CaseMilestonesComponent,
+    CasePopupComponent,
     
     
   ],

@@ -1,6 +1,8 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
+import { CasePopupComponent } from '../../case-popup/case-popup.component';
 
 
 interface TreeNode {
@@ -75,8 +77,19 @@ export class CarePlanComponent {
     },
   ];
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
     this.dataSource.data = this.treeData;
+  }
+
+  opeCaseDialog(): void {
+    const dialogRef = this.dialog.open(CasePopupComponent, {
+      width: '600px',
+      data: {}, // Optional: Pass data if needed
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog closed, selected country:', result);
+    });
   }
 
   hasChild = (_: number, node: FlatNode) => node.expandable;

@@ -1,0 +1,115 @@
+<h2 mat-dialog-title>Add Case</h2>
+
+<mat-dialog-content class="mat-typography">
+
+    <div class="d-flex flex-column">
+        <!-- <mat-form-field appearance="fill">
+        <input
+        type="text"
+        placeholder="Case"
+        matInput
+        [matAutocomplete]="auto"
+        [(ngModel)]="selectedCountry"
+        name="case"
+        (input)="onInput($event)"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let country of filteredCountries" [value]="country">
+            {{ country }}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field> -->
+
+    <mat-form-field appearance="fill">
+        <input
+        type="text"
+        placeholder="Case"
+        matInput
+        [matAutocomplete]="auto1"
+        [(ngModel)]="selectedCase"
+        name="case"
+        (input)="onCaseInput($event)"
+        />
+        <mat-autocomplete #auto1="matAutocomplete">
+          <mat-option *ngFor="let val1 of filteredCase" [value]="val1">
+            {{ val1 }}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <input
+        type="text"
+        placeholder="Case Equity"
+        matInput
+        [matAutocomplete]="auto2"
+        [(ngModel)]="selectedEquity"
+        name="case_equity"
+        (input)="onCaseEquityInput($event)"
+        />
+        <mat-autocomplete #auto2="matAutocomplete">
+          <mat-option *ngFor="let val2 of filteredEquity" [value]="val2">
+            {{ val2 }}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <input
+        type="text"
+        placeholder="Source"
+        matInput
+        [matAutocomplete]="auto3"
+        [(ngModel)]="selectedSource"
+        name="source"
+        (input)="onSourceInput($event)"
+        />
+        <mat-autocomplete #auto3="matAutocomplete">
+          <mat-option *ngFor="let val3 of filteredSource" [value]="val3">
+            {{ val3 }}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <input matInput >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Notes</mat-label>
+        <input matInput >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Case Primary</mat-label>
+        <input matInput >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Main Diagnotics</mat-label>
+        <input matInput >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Additional Diagnostic</mat-label>
+        <input matInput >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Additional Diagnostic Other</mat-label>
+        <input matInput >
+    </mat-form-field>
+    </div>
+    
+    
+   
+
+                
+ 
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mt-4 mb-4">
+  <button mat-stroked-button mat-dialog-close>Close</button>
+  <button color="primary" mat-flat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+</mat-dialog-actions>
