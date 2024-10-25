@@ -1,0 +1,95 @@
+<div>
+  <div class="d-flex justify-content-center">
+    <!-- Patient Card -->
+    <mat-card class="shadow-box mat-elevation-z ">
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Search for a Patient</mat-label>
+          <input matInput
+                 [formControl]="patientControl"
+                 [matAutocomplete]="autoPatient"
+                 class="formControl">
+          <mat-autocomplete #autoPatient="matAutocomplete"
+                            (optionSelected)="onPatientSelected($event.option.value)"
+                            [displayWith]="displayPatient">
+            <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
+              {{ patient.name }} <!-- Show only the full name -->
+            </mat-option>
+          </mat-autocomplete>
+          <button mat-icon-button matSuffix *ngIf="patientControl.value" (click)="clearSelection()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+      
+      
+      <!-- Show selected patient details -->
+      <!-- <div *ngIf="selectedPatient" class="patient-details">
+        <div class="detail">
+          <mat-icon>person</mat-icon>
+          <span>Name:</span>
+          <p>{{ selectedPatient.name }}</p>
+        </div>
+        <div class="detail">
+          <mat-icon>badge</mat-icon>
+          <span>ID:</span>
+          <p>{{ selectedPatient.id }}</p>
+        </div>
+        <div class="detail">
+          <mat-icon>email</mat-icon>
+          <span>Email:</span>
+          <p>{{ selectedPatient.email }}</p>
+        </div>
+        <div class="detail">
+          <mat-icon>calendar_today</mat-icon>
+          <span>Date of Birth:</span>
+          <p>{{ selectedPatient.dob | date:'dd/MM/yyyy' }}</p>
+        </div>
+      </div> -->
+    </mat-card>
+    </div>
+    <div class="d-flex justify-content-center">
+      <mat-card *ngIf="selectedPatient" class="shadow-box mat-elevation-z">
+        <form class="example-form">
+          <!-- Assessment Dropdown -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Search for an assessment</mat-label>
+            <input matInput
+                   [formControl]="assessmentControl"
+                   [matAutocomplete]="autoAssessment"
+                   class="formControl">
+            <mat-autocomplete #autoAssessment="matAutocomplete" 
+                              (optionSelected)="onAssessmentSelected($event.option.value)"
+                              [displayWith]="displayAssessment">
+              <mat-option *ngFor="let assessment of filteredAssessments | async" [value]="assessment">
+                {{ assessment.screenName }}
+              </mat-option>
+            </mat-autocomplete>
+        
+            <button mat-icon-button matSuffix *ngIf="assessmentControl.value" (click)="clearAssessmentSelection()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </form>
+      
+        <!-- Show selected assessment details -->
+        <!-- <div *ngIf="selectedAssessment" class="assessment-details">
+          <div class="detail">
+            <mat-icon>assignment</mat-icon>
+            <span>Assessment Name:</span>
+            <p>{{ selectedAssessment.name }}</p>
+          </div>
+          <div class="detail">
+            <mat-icon>badge</mat-icon>
+            <span>ID:</span>
+            <p>{{ selectedAssessment.id }}</p>
+          </div>
+          <div class="detail">
+            <mat-icon>calendar_today</mat-icon>
+            <span>Date:</span>
+            <p>{{ selectedAssessment.date | date:'dd/MM/yyyy' }}</p>
+          </div>
+        </div> -->
+      </mat-card>
+    </div>
+</div>

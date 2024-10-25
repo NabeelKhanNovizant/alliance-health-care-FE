@@ -1,0 +1,77 @@
+table {
+    width: 100%;
+  }
+  
+  .sub-problems ul {
+    list-style-type: none; // Remove bullets
+    padding-left: 0; // Remove default padding
+  }
+  
+  .sub-problems ul li {
+    display: flex;
+    align-items: center;
+    gap: 8px; // Space between checkbox and label
+  }
+  
+  // Animation for expanding/collapsing rows
+  .sub-problems {
+    overflow: hidden;
+    justify-content: center;
+    display: flex;
+  }
+
+  .table{
+    width: 50%;
+  }
+  
+.info{
+  width: 25%;
+  padding: 10px 17px 10px 17px;
+  margin-bottom: 30px;
+}
+
+
+.btn-sub-add{
+  border: none;
+  border-radius: 6px;
+  padding: 5px 15px 4px 15px;
+  margin-top: 8px;
+}
+.btn-add {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px 10px 20px;
+}
+
+.btn-sub-add:hover {
+  background-color: #3f51b5;
+  color: white;
+}
+.btn-add:hover {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.detail {
+  display: flex;
+    align-items: end;
+    margin: 8px 0px;
+    padding: 0px 0;
+    font-size: 14px;
+
+  mat-icon {
+    margin-right: 10px;
+    color: #757575;
+  }
+
+  span {
+    font-weight: 500;
+    width: 140px;
+    color: #333;
+  }
+
+  p {
+    margin: 0;
+    color: #555;
+  }
+}

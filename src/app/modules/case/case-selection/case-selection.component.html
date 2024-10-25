@@ -1,0 +1,91 @@
+<mat-card  class="info">
+  <div class="detail">
+    <mat-icon>person</mat-icon>
+    <span>Name:</span>
+    <p>John Doe</p>
+  </div>
+  <div class="detail">
+    <mat-icon>assignment</mat-icon>
+    <span>Assessment Name:</span>
+    <p>Initial Assessment</p>
+  </div>
+</mat-card>
+
+
+<div class="d-flex mb-3 justify-content-between w-50">
+    <input (keyup)="applyFilter($event)" placeholder="Search..." #input class="form-control w-50">
+    <button type="button" (click)="addRow()" class="btn-add">Add Row</button>
+</div>
+
+  
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th><input type="checkbox" (change)="selectAll($event)" /></th>
+        <th>SL</th>
+        <th>Medical Problem</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let row of data; let i = index">
+        <tr>
+          <td><input type="checkbox" [(ngModel)]="row.selected" /></td>
+          <td>{{ i + 1 }}</td>
+          <td>
+            <!-- Conditionally render the text or input based on the row's editable state -->
+            <ng-container *ngIf="row.isEditable; else readonlyField">
+              <input type="text" [(ngModel)]="row.name" placeholder="Enter Medical Problem" />
+            </ng-container>
+            <ng-template #readonlyField>
+              {{ row.name }}
+            </ng-template>
+          </td>
+          <td (click)="row.isExpand = !row.isExpand">
+            <i *ngIf="!row.isExpand" class="bi-chevron-right"></i>
+            <i *ngIf="row.isExpand" class="bi-chevron-up"></i>
+          </td>
+        </tr>
+        
+        <!-- Expanded row for subProblems -->
+        <tr *ngIf="row.isExpand" [@expandAnimation]>
+          <td colspan="4">
+            <table class="table table-sm table-borderless" style="margin-left: 20px;">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Sub Problem</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let problem of row.subProblems; let j = index">
+                  <tr>
+                    <td><input type="checkbox" [(ngModel)]="problem.selectedChild" /></td>
+                    <td>
+                      <ng-container *ngIf="problem.isEditable; else subReadonlyField">
+                        <input type="text" [(ngModel)]="problem.name" placeholder="Enter Sub Problem" />
+                      </ng-container>
+                      <ng-template #subReadonlyField>
+                        {{ problem.name }}
+                      </ng-template>
+                    </td>
+                  </tr>
+                </ng-container>
+                <tr>
+                  <td colspan="2">
+                    <button type="button" class="btn-sub-add" (click)="addSubProblem(row)">Add Sub Problem</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  
+  
+  
+  

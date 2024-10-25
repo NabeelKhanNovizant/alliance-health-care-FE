@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col gap-3 d-grid">
+            <div class="d-flex">
+                <label for="case-name" class="form-label-drop">Case Name:</label>
+
+                <mat-form-field class="example-full-width">
+                    <input type="text" placeholder="Pick one" id="case-name"
+                    aria-label="Case Name" matInput 
+                    [formControl]="caseControl" 
+                    [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let case of filteredCases | async" [value]="case">
+                        {{case}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  
+            </div>
+            <div class="d-flex">
+                <label for="case-source" class="form-label">Case Source:</label>
+                <input type="text" class="form-control" id="case-source" >
+            </div>
+            <div class="d-flex">
+                <label for="pry-contact" class="form-label">Case Primary Contact:</label>
+                <input type="text" class="form-control" id="pry-contact" placeholder="(000) 000-0000">
+            </div>
+            <div class="d-flex">
+                <label for="main-daignos" class="form-label">Main Daignosis:</label>
+                <input type="text" class="form-control" id="main-daignos">
+            </div>
+
+        </div>
+        <div class="col">
+            
+        </div>
+        <div class="col">
+            
+        </div>
+    </div>
+</div>

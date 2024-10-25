@@ -1,0 +1,181 @@
+/* Toolbar (Top Navigation) */
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .company-logo {
+    height: 40px;
+    width: auto;
+  }
+  
+  .company-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .profile-initials {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffffff; /* White background */
+    color: #3f51b5; /* Primary color for the text */
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .profile-info{
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  /* Profile name styling */
+  .profile-name {
+    margin-top: 5px;
+    margin-right: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  /* Form Container */
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  /* Two-column Layout */
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .form-field {
+    width: 48%; /* Adjust width to create two columns */
+  }
+  
+  .details {
+    margin-top: 20px;
+  }
+  
+  /* Styling the mat-card */
+/* Grid layout with two columns and three rows */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 16px; /* Adjust spacing between the grid items */
+  }
+  
+  .grid-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Ensure that the mat-card has appropriate padding and margin */
+  mat-card {
+    margin: 24px;
+    padding: 16px;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,1), 
+    0 1px 1px 0 rgba(0,0,0,1), 
+    0 1px 3px 0 rgba(0,0,0,1);
+  }
+  
+  .example-form {
+    min-width: 155px;
+    max-width: 645px;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  ::placeholder {
+    text-align: center; 
+ }
+  .example-input {
+    max-width: 100%;
+    width: 480px;
+  }
+  .detail {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+  
+    mat-icon {
+      margin-right: 10px;
+      color: #757575;
+    }
+  
+    span {
+      font-weight: 500;
+      margin-right: 8px;
+      width: 140px;
+      color: #333;
+    }
+  
+    p {
+      margin: 0;
+      color: #555;
+    }
+  }
+  
+  .patient-details {
+    margin-top: 20px;
+    padding: 10px;
+  }
+  .assessment-details {
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+  .mat-mdc-form-field {
+    margin-top: 16px;
+  }
+  .button-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns buttons to the right */
+    margin-top: 20px; /* Adds some space above the buttons */
+  }
+
+
+  .mb-4{
+    margin-bottom: 20px;
+  }
+
+
+  .next-btn{
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px 10px 20px;
+    margin-right: 15px;
+    background-color: lavender;
+  }
+  .next-btn:hover {
+    background-color: #3f51b5;
+    color: white;
+    }
+
+    .btn-gn-care{
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px 10px 20px;
+    margin-right: 21px;
+    background-color: lavender;
+    }
+    .btn-gn-care:hover {
+      background-color: #3f51b5;
+      color: white;
+    }

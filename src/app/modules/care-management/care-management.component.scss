@@ -1,0 +1,25 @@
+.list-group {
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+  }
+  .form-label {
+    margin-bottom: .5rem;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-label-drop{
+    width: 134px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: #333;
+}
+
+.example-full-width{
+    width: 280px;
+}

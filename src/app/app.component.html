@@ -1,0 +1,60 @@
+<mat-toolbar color="primary">
+  <!-- Company Icon and Name -->
+  <span class="company-name">Alliance Health Care</span>
+  <span class="toolbar-spacer"></span>
+  <span class="profile-info">
+    <span class="profile-name">Jordan Matthew</span>
+    <span class="profile-initials">JM</span>
+  </span>
+</mat-toolbar>
+
+<!-- Conditionally show components based on the current route -->
+<ng-container *ngIf="showContent">
+  <app-patient (patientSelected)="onPatientSelected($event)"></app-patient>
+  <div class="d-flex justify-content-center">
+    <button type="button" class="btn-gn-care" (click)="OnSelect()" *ngIf="SelectedPatient">Generate Care Plan</button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!showContent">
+<app-care-plan (patientSelected)="onPatientSelected($event)"></app-care-plan>
+</ng-container>
+<!-- <mat-stepper #stepper linear (selectionChange)="onStepChange($event)" class="mb-4">
+  <mat-step>
+    <ng-template matStepLabel>Patient Information</ng-template>
+    <app-patient *ngIf="currentStep === 0"></app-patient>
+    <div class="button-container">
+      <button mat-button matStepperNext class="next-btn">Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Case Selection</ng-template>
+    <app-case-selection *ngIf="currentStep === 1"></app-case-selection>
+    <div class="button-container">
+      <button mat-button matStepperPrevious class="next-btn">Back</button>
+      <button mat-button matStepperNext class="next-btn">Next</button>
+    </div>
+  </mat-step>
+
+
+  <mat-step>
+    <ng-template matStepLabel>Build Care Plan</ng-template>
+    <app-care-plan *ngIf="currentStep === 2"></app-care-plan>
+    <div class="button-container">
+      <button mat-button matStepperPrevious class="next-btn">Back</button>
+      <button mat-button matStepperNext class="next-btn">Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Review & Confirm</ng-template>
+    <app-plan-view *ngIf="currentStep === 3"></app-plan-view>
+    <div class="button-container">
+      <button mat-button matStepperPrevious class="next-btn">Back
+      </button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+
+</mat-stepper> -->

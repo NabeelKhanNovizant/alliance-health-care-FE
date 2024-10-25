@@ -1,0 +1,188 @@
+<!-- <div class="center">
+  <mat-card  class="info">
+    <div class="detail">
+      <mat-icon>person</mat-icon>
+      <span>Name:</span>
+      <p>John Doe</p>
+    </div>
+    <div class="detail">
+      <mat-icon>assignment</mat-icon>
+      <span>Assessment Name:</span>
+      <p>Initial Assessment</p>
+    </div>
+  </mat-card>
+</div> -->
+
+<div class="body d-flex gap-3">
+  <mat-card>
+    <div class="bg-header">
+      <mat-card-title>Member Demograhics</mat-card-title>
+      <mat-card-header>Patient Primary Information</mat-card-header>
+    </div>
+        <hr>
+    <app-member-demo></app-member-demo>
+  </mat-card>
+  <mat-card>
+    <div class="bg-header">
+      <mat-card-title>Assessments</mat-card-title>
+      <mat-card-header>Assessment Details</mat-card-header>
+    </div>
+    <hr>
+    <app-assessment-details></app-assessment-details>
+  </mat-card>
+</div>
+
+<div class="body">
+  <mat-card class="care-mang">
+    <div class="bg-header d-flex justify-content-between">
+      <mat-card-title>Enhanced Care Management</mat-card-title>
+      <div class="d-flex gap-1">
+        <button type="button" class="btn-add">
+          <mat-icon class="icon-add-btn">add
+          </mat-icon>
+        </button>
+        <button type="button" class="btn-add">
+          <mat-icon class="icon-add-btn">visibility
+          </mat-icon>
+        </button>
+      </div>
+    </div>
+    <hr>
+    <app-care-management></app-care-management>
+  </mat-card>
+</div>+
+<div class="body d-flex gap-3">
+  <mat-card class="card-prob">
+    <div class="bg-header d-flex justify-content-between">
+      <mat-card-title>Problemns</mat-card-title>
+      <div class="d-flex gap-1">
+        <button type="button" class="btn-add">
+          <mat-icon class="icon-add-btn">edit
+          </mat-icon>
+        </button>
+        
+      </div>
+    </div>
+    <hr>
+        <app-case-problems></app-case-problems>
+  </mat-card >
+  <mat-card class="card-prob">
+    <div class="bg-header d-flex justify-content-between">
+      <mat-card-title>Goals</mat-card-title>
+      <div class="d-flex gap-1">
+        <button type="button" class="btn-add">
+          <mat-icon class="icon-add-btn">edit
+          </mat-icon>
+        </button>
+        
+      </div>
+    </div>
+    <hr>
+        <app-case-goals></app-case-goals>
+  </mat-card>
+  <mat-card class="card-prob">
+    <div class="bg-header d-flex justify-content-between">
+      <mat-card-title>Milestones</mat-card-title>
+      <div class="d-flex gap-1">
+        <button type="button" class="btn-add">
+          <mat-icon class="icon-add-btn">edit
+          </mat-icon>
+        </button>
+        
+      </div>
+    </div>
+    <hr>
+        <app-case-milestones></app-case-milestones>
+  </mat-card>
+</div>
+
+
+
+<!-- <mat-accordion class="center">
+    <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" class="panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Problem: Diabetes </mat-panel-title>
+        <mat-panel-description>
+          Sub-Problem: Type 1 Diabetes
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <mat-checkbox
+            [checked]="node.checked"
+            (change)="onCheckboxChange(node)"
+          >
+            {{ node.name }}
+          </mat-checkbox>
+        </mat-tree-node>
+      
+        <mat-tree-node
+          *matTreeNodeDef="let node; when: hasChild"
+          matTreeNodePadding
+        >
+          <div class="tree-node">
+            <mat-icon matTreeNodeToggle>
+              {{
+                treeControl.isExpanded(node)
+                  ? 'expand_more'
+                  : 'chevron_right'
+              }}
+            </mat-icon>
+            <mat-checkbox
+              [checked]="node.checked"
+              (change)="onCheckboxChange(node)"
+            >
+              {{ node.name }}
+            </mat-checkbox>
+          </div>
+        </mat-tree-node>
+      </mat-tree>
+      
+          </mat-expansion-panel>
+
+  </mat-accordion>
+
+  <mat-accordion class="center">
+    <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" class="panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Problem: Diabetes </mat-panel-title>
+        <mat-panel-description>
+          Sub-Problem: Type 2 Diabetes
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <mat-checkbox
+            [checked]="node.checked"
+            (change)="onCheckboxChange(node)"
+          >
+            {{ node.name }}
+          </mat-checkbox>
+        </mat-tree-node>
+      
+        <mat-tree-node
+          *matTreeNodeDef="let node; when: hasChild"
+          matTreeNodePadding
+        >
+          <div class="tree-node">
+            <mat-icon matTreeNodeToggle>
+              {{
+                treeControl.isExpanded(node)
+                  ? 'expand_more'
+                  : 'chevron_right'
+              }}
+            </mat-icon>
+            <mat-checkbox
+              [checked]="node.checked"
+              (change)="onCheckboxChange(node)"
+            >
+              {{ node.name }}
+            </mat-checkbox>
+          </div>
+        </mat-tree-node>
+      </mat-tree>
+      
+          </mat-expansion-panel>
+
+  </mat-accordion> -->
+  
