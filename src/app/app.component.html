@@ -10,14 +10,14 @@
 
 <!-- Conditionally show components based on the current route -->
 <ng-container *ngIf="showContent">
-  <app-patient (patientSelected)="onPatientSelected($event)"></app-patient>
+   <app-patient ></app-patient><!--(canNavigate)="onCanNavigate($event)" -->
   <div class="d-flex justify-content-center">
-    <button type="button" class="btn-gn-care" (click)="OnSelect()" *ngIf="SelectedPatient">Generate Care Plan</button>
+    <button type="button" class="btn-gn-care" (click)="OnSelect()" *ngIf="selectedCarePlanModel ">Generate Care Plan</button>
   </div>
 </ng-container>
 
 <ng-container *ngIf="!showContent">
-<app-care-plan (patientSelected)="onPatientSelected($event)"></app-care-plan>
+<app-care-plan></app-care-plan>
 </ng-container>
 <!-- <mat-stepper #stepper linear (selectionChange)="onStepChange($event)" class="mb-4">
   <mat-step>

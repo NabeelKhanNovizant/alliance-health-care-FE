@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable, map, startWith } from 'rxjs';
 import { PatientComponent } from './modules/patients/components/patient/patient.component';
+import { CarePlanModel } from './models/care-plan-model';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
   title = 'TureCare';
 
   @ViewChild(PatientComponent) patientComponent!: PatientComponent;
-  SelectedPatient: any = null;
+  selectedCarePlanModel: CarePlanModel | null = null;
   showContent: boolean = true; // To toggle content visibility
 
   constructor(private router: Router, private cdr: ChangeDetectorRef) {
@@ -31,14 +32,12 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/patient']);
   }
 
-  onPatientSelected(patient: any) {
-    this.SelectedPatient = patient;
-    console.log('Selected Patient: ', this.SelectedPatient);
+  onCanNavigate(model: CarePlanModel) {
+    this.selectedCarePlanModel = model;
     this.cdr.detectChanges(); 
   }
 
   OnSelect() {
-    console.log(this.patientComponent.selectedPatient);
     // Navigate to the care plan component
     this.router.navigate(['/care-plan']);
   }

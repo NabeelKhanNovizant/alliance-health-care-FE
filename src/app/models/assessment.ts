@@ -1,6 +1,6 @@
-export interface Assessment {
-    id: number;
-    screenName: string;
-    assesmentDate: Date;
-    status: string;
+export class Assessment {
+    id: number = 0;
+    screenName: string = "";
+    assesmentDate: Date = new Date();
+    status: string = "";
 }

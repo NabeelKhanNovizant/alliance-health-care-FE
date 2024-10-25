@@ -13,7 +13,7 @@
                             (optionSelected)="onPatientSelected($event.option.value)"
                             [displayWith]="displayPatient">
             <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
-              {{ patient.name }} <!-- Show only the full name -->
+              {{ patient.firstName + ' ' + patient.lastName }} <!-- Show only the full name -->
             </mat-option>
           </mat-autocomplete>
           <button mat-icon-button matSuffix *ngIf="patientControl.value" (click)="clearSelection()">
@@ -49,7 +49,7 @@
     </mat-card>
     </div>
     <div class="d-flex justify-content-center">
-      <mat-card *ngIf="selectedPatient" class="shadow-box mat-elevation-z">
+      <mat-card *ngIf="carePlanModel.patient" class="shadow-box mat-elevation-z">
         <form class="example-form">
           <!-- Assessment Dropdown -->
           <mat-form-field class="example-full-width">
@@ -62,7 +62,7 @@
                               (optionSelected)="onAssessmentSelected($event.option.value)"
                               [displayWith]="displayAssessment">
               <mat-option *ngFor="let assessment of filteredAssessments | async" [value]="assessment">
-                {{ assessment.name }}
+                {{ assessment.screenName }}
               </mat-option>
             </mat-autocomplete>
         
