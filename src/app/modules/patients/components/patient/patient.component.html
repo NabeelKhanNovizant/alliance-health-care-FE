@@ -13,7 +13,7 @@
                             (optionSelected)="onPatientSelected($event.option.value)"
                             [displayWith]="displayPatient">
             <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
-              {{ patient.name }} <!-- Show only the full name -->
+              {{ patient.name }} 
             </mat-option>
           </mat-autocomplete>
           <button mat-icon-button matSuffix *ngIf="patientControl.value" (click)="clearSelection()">
@@ -21,31 +21,6 @@
           </button>
         </mat-form-field>
       </form>
-      
-      
-      <!-- Show selected patient details -->
-      <!-- <div *ngIf="selectedPatient" class="patient-details">
-        <div class="detail">
-          <mat-icon>person</mat-icon>
-          <span>Name:</span>
-          <p>{{ selectedPatient.name }}</p>
-        </div>
-        <div class="detail">
-          <mat-icon>badge</mat-icon>
-          <span>ID:</span>
-          <p>{{ selectedPatient.id }}</p>
-        </div>
-        <div class="detail">
-          <mat-icon>email</mat-icon>
-          <span>Email:</span>
-          <p>{{ selectedPatient.email }}</p>
-        </div>
-        <div class="detail">
-          <mat-icon>calendar_today</mat-icon>
-          <span>Date of Birth:</span>
-          <p>{{ selectedPatient.dob | date:'dd/MM/yyyy' }}</p>
-        </div>
-      </div> -->
     </mat-card>
     </div>
     <div class="d-flex justify-content-center">
@@ -62,34 +37,15 @@
                               (optionSelected)="onAssessmentSelected($event.option.value)"
                               [displayWith]="displayAssessment">
               <mat-option *ngFor="let assessment of filteredAssessments | async" [value]="assessment">
-                {{ assessment.name }}
+                {{ assessment.name }} | {{ assessment.date | date: 'MM/dd/yyyy' }}
               </mat-option>
             </mat-autocomplete>
-        
             <button mat-icon-button matSuffix *ngIf="assessmentControl.value" (click)="clearAssessmentSelection()">
               <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>
         </form>
-      
-        <!-- Show selected assessment details -->
-        <!-- <div *ngIf="selectedAssessment" class="assessment-details">
-          <div class="detail">
-            <mat-icon>assignment</mat-icon>
-            <span>Assessment Name:</span>
-            <p>{{ selectedAssessment.name }}</p>
-          </div>
-          <div class="detail">
-            <mat-icon>badge</mat-icon>
-            <span>ID:</span>
-            <p>{{ selectedAssessment.id }}</p>
-          </div>
-          <div class="detail">
-            <mat-icon>calendar_today</mat-icon>
-            <span>Date:</span>
-            <p>{{ selectedAssessment.date | date:'dd/MM/yyyy' }}</p>
-          </div>
-        </div> -->
+        
       </mat-card>
     </div>
 </div>

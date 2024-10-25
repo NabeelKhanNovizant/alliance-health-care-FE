@@ -23,6 +23,7 @@ export class PatientComponent implements OnInit {
   filteredPatients: Observable<any[]> | undefined;
   filteredAssessments: Observable<any[]> | undefined;
   @Output() patientSelected = new EventEmitter<any>();
+  @Output() assessmentSelected = new EventEmitter<any>();
 
   selectedPatient: any = null;  
   selectedAssessment: any = null;  
@@ -64,20 +65,6 @@ export class PatientComponent implements OnInit {
     );
   }
 
-  onPatientSelected(patient: any) {
-    this.selectedPatient = patient;
-    this.patientControl.setValue(this.selectedPatient);
-
-    if (this.selectedPatient && this.selectedPatient.id) {
-      this.getAssessments(this.selectedPatient.id);
-    }
-    this.patientSelected.emit(this.selectedPatient);
-
-    console.log('Patient selected:', this.selectedPatient);
-
-    this.clearAssessmentSelection(); 
-  }
-
   getAssessments(patientId: number): void {
     this.patientsInfoService.getAssessment(patientId).subscribe(
       (assessments) => {
@@ -99,9 +86,24 @@ export class PatientComponent implements OnInit {
   }
   
 
+  onPatientSelected(patient: any) {
+    this.selectedPatient = patient;
+    this.patientControl.setValue(this.selectedPatient);
+
+    if (this.selectedPatient && this.selectedPatient.id) {
+      this.getAssessments(this.selectedPatient.id);
+    }
+    this.patientSelected.emit(this.selectedPatient.id);
+
+    console.log('Patient selected:', this.selectedPatient.id);
+
+    this.clearAssessmentSelection(); 
+  }
   onAssessmentSelected(assessment: any) {
     this.selectedAssessment = assessment;
     this.assessmentControl.setValue(this.selectedAssessment);
+    this.assessmentSelected.emit(this.selectedAssessment.id);
+    console.log('Assessment selected:', this.selectedAssessment.id);
   }
 
   private _filterPatients(value: string): any[] {
@@ -113,10 +115,18 @@ export class PatientComponent implements OnInit {
 
   private _filterAssessments(value: string): any[] {
     const filterValue = this._normalizeValue(value);
-    return this.assessments.filter(assessment =>
-      this._normalizeValue(assessment.name).includes(filterValue)
-    );
+  
+    return this.assessments.filter(assessment => {
+      const nameMatches = this._normalizeValue(assessment.name).includes(filterValue);
+      
+      // Format date as MM/DD/YYYY for filtering
+      const formattedDate = new Date(assessment.date).toLocaleDateString('en-US');
+      const dateMatches = this._normalizeValue(formattedDate).includes(filterValue);
+      
+      return nameMatches || dateMatches;
+    });
   }
+  
 
   private _normalizeValue(value: string): string {
     return value.toLowerCase().replace(/\s/g, '');
@@ -127,8 +137,13 @@ export class PatientComponent implements OnInit {
   }
 
   displayAssessment(assessment: any): string {
-    return assessment ? assessment.name : '';
+    if (assessment) {
+      const formattedDate = new Date(assessment.date).toLocaleDateString('en-US');
+      return `${assessment.name} | ${formattedDate}`;
+    }
+    return '';
   }
+  
 
 
   clearSelection() {
