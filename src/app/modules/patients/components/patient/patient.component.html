@@ -62,7 +62,7 @@
                               (optionSelected)="onAssessmentSelected($event.option.value)"
                               [displayWith]="displayAssessment">
               <mat-option *ngFor="let assessment of filteredAssessments | async" [value]="assessment">
-                {{ assessment.screenName }}
+                {{ assessment.name }}
               </mat-option>
             </mat-autocomplete>
         

@@ -22,6 +22,8 @@ export class PatientComponent implements OnInit {
   
   filteredPatients: Observable<any[]> | undefined;
   filteredAssessments: Observable<any[]> | undefined;
+  @Output() patientSelected = new EventEmitter<any>();
+
   selectedPatient: any = null;  
   selectedAssessment: any = null;  
   
@@ -69,6 +71,8 @@ export class PatientComponent implements OnInit {
     if (this.selectedPatient && this.selectedPatient.id) {
       this.getAssessments(this.selectedPatient.id);
     }
+    this.patientSelected.emit(this.selectedPatient);
+
     console.log('Patient selected:', this.selectedPatient);
 
     this.clearAssessmentSelection(); 
@@ -110,7 +114,7 @@ export class PatientComponent implements OnInit {
   private _filterAssessments(value: string): any[] {
     const filterValue = this._normalizeValue(value);
     return this.assessments.filter(assessment =>
-      this._normalizeValue(assessment.screenName).includes(filterValue)
+      this._normalizeValue(assessment.name).includes(filterValue)
     );
   }
 
@@ -123,8 +127,9 @@ export class PatientComponent implements OnInit {
   }
 
   displayAssessment(assessment: any): string {
-    return assessment ? assessment.screenName : '';
+    return assessment ? assessment.name : '';
   }
+
 
   clearSelection() {
     this.clearPatientSelection();
