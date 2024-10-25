@@ -3,6 +3,9 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
 import { CasePopupComponent } from '../../case-popup/case-popup.component';
+import { ProblemPopupComponent } from '../../problem-popup/problem-popup.component';
+import { MilestonePopupComponent } from '../../milestone-popup/milestone-popup.component';
+import { GoalPopupComponent } from '../../goal-popup/goal-popup.component';
 
 
 interface TreeNode {
@@ -83,6 +86,39 @@ export class CarePlanComponent {
 
   opeCaseDialog(): void {
     const dialogRef = this.dialog.open(CasePopupComponent, {
+      width: '600px',
+      data: {}, // Optional: Pass data if needed
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog closed, selected country:', result);
+    });
+  }
+
+  opeProblemDialog(): void {
+    const dialogRef = this.dialog.open(ProblemPopupComponent, {
+      width: '600px',
+      data: {}, // Optional: Pass data if needed
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog closed, selected country:', result);
+    });
+  }
+
+  opeGoalDialog(): void {
+    const dialogRef = this.dialog.open(GoalPopupComponent, {
+      width: '600px',
+      data: {}, // Optional: Pass data if needed
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog closed, selected country:', result);
+    });
+  }
+
+  opeMilestoneDialog(): void {
+    const dialogRef = this.dialog.open(MilestonePopupComponent, {
       width: '600px',
       data: {}, // Optional: Pass data if needed
     });

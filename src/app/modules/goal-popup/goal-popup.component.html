@@ -1,0 +1,109 @@
+<h2 mat-dialog-title>Add Goal</h2>
+
+<mat-dialog-content class="mat-typography">
+
+    <div class="d-flex flex-column">
+       
+
+    <mat-form-field appearance="fill">
+        <input
+        type="text"
+        placeholder="Problem"
+        matInput
+        [matAutocomplete]="auto1"
+        [(ngModel)]="selectedProblem"
+        name="problem"
+        (input)="onInput($event)"
+        />
+        <mat-autocomplete #auto1="matAutocomplete">
+          <mat-option *ngFor="let val1 of filteredProblem" [value]="val1">
+            {{ val1 }}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <input
+        type="text"
+        placeholder="Goal"
+        matInput
+        [matAutocomplete]="auto2"
+        [(ngModel)]="selectedgoal"
+        name="goal"
+        (input)="onInputGoal($event)"
+        />
+        <mat-autocomplete #auto2="matAutocomplete">
+          <mat-option *ngFor="let val1 of filteredgoals" [value]="val1">
+            {{ val1 }}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <input
+        type="text"
+        placeholder="Status"
+        matInput
+        [matAutocomplete]="auto3"
+        [(ngModel)]="selectedStatu"
+        name="status"
+        (input)="onInputStatus($event)"
+        />
+        <mat-autocomplete #auto3="matAutocomplete">
+          <mat-option *ngFor="let val1 of filteredStatus" [value]="val1">
+            {{ val1 }}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill">
+        <input
+        type="text"
+        placeholder="Priority"
+        matInput
+        [matAutocomplete]="auto4"
+        [(ngModel)]="selectedpriorities"
+        name="priority"
+        (input)="onInputPriority($event)"
+        />
+        <mat-autocomplete #auto4="matAutocomplete">
+          <mat-option *ngFor="let val1 of filteredpriorities" [value]="val1">
+            {{ val1 }}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    
+    <mat-form-field>
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Close Date</mat-label>
+        <input matInput [matDatepicker]="picker2">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+
+    
+
+
+   
+    </div>
+    
+    
+   
+
+                
+ 
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mt-4 mb-4">
+  <button mat-stroked-button mat-dialog-close>Close</button>
+  <button color="primary" mat-flat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

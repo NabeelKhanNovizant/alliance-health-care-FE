@@ -23,6 +23,9 @@ import { CaseGoalsComponent } from './modules/case-goals/case-goals.component';
 import { CaseMilestonesComponent } from './modules/case-milestones/case-milestones.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CasePopupComponent } from './modules/case-popup/case-popup.component';
+import { GoalPopupComponent } from './modules/goal-popup/goal-popup.component';
+import { ProblemPopupComponent } from './modules/problem-popup/problem-popup.component';
+import { MilestonePopupComponent } from './modules/milestone-popup/milestone-popup.component';
 
 
 @NgModule({
@@ -40,6 +43,9 @@ import { CasePopupComponent } from './modules/case-popup/case-popup.component';
     CaseGoalsComponent,
     CaseMilestonesComponent,
     CasePopupComponent,
+    GoalPopupComponent,
+    ProblemPopupComponent,
+    MilestonePopupComponent,
     
     
   ],

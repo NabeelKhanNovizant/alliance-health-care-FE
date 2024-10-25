@@ -41,8 +41,8 @@
     <div class="bg-header d-flex justify-content-between">
       <mat-card-title>Problems</mat-card-title>
       <div class="d-flex gap-1">
-        <button type="button" class="btn-add">
-          <mat-icon class="icon-add-btn">edit
+        <button type="button" class="btn-add" (click)="opeProblemDialog()">
+          <mat-icon class="icon-add-btn" >edit
           </mat-icon>
         </button>
         
@@ -55,7 +55,7 @@
     <div class="bg-header d-flex justify-content-between">
       <mat-card-title>Goals</mat-card-title>
       <div class="d-flex gap-1">
-        <button type="button" class="btn-add">
+        <button type="button" class="btn-add" (click)="opeGoalDialog()">
           <mat-icon class="icon-add-btn">edit
           </mat-icon>
         </button>
@@ -69,7 +69,7 @@
     <div class="bg-header d-flex justify-content-between">
       <mat-card-title>Milestones</mat-card-title>
       <div class="d-flex gap-1">
-        <button type="button" class="btn-add">
+        <button type="button" class="btn-add" (click)="opeMilestoneDialog()">
           <mat-icon class="icon-add-btn">edit
           </mat-icon>
         </button>
