@@ -36,7 +36,7 @@ export class CarePlanGoal {
     startDate: Date = new Date();
     endDate: Date = new Date();
     problemId: number = 0;
-
+    problemName: string = "";
     milestones: CarePlanMilestone[] = [];
 }
 
@@ -48,4 +48,6 @@ export class CarePlanMilestone {
     startDate: Date = new Date();
     endDate: Date = new Date();
     goalId: number = 0;
+    goalName: string = "";
+    problemName: string = "";
 }

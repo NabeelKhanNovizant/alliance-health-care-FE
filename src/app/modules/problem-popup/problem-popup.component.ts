@@ -22,22 +22,23 @@ export class ProblemPopupComponent {
   startDate: Date | any;
   endDate: Date | any;
 
-  constructor(private carePlanService: CarePlanService) {
-    this.filteredProblem = this.problems; // Initially show all countries    
+  constructor(private carePlanService: CarePlanService) {       
     this.filteredStatus = this.status; // Initially show all countries    
   }  
   ngOnInit() {    
     this.carePlanService.currentCarePlanModel.subscribe((model) => {
       this.carePlanModel = model;       
     });
-    // this.carePlanService.apiResponseModel.subscribe((model) => {
-    //   this.apiResponse = model;      
+    this.apiResponse = this.carePlanService.apiResponse;
     if(this.apiResponse && this.apiResponse.cases.length > 0) {
       this.problems = this.apiResponse?.cases[0].problems.map((item) => {
         return item.name;
       })!;
+      this.filteredProblem = this.problems; // Initially show all countries 
     }
-    // });
+    else {
+      console.log('Api Response is null');
+    }
   }
 
   // Method to filter countries based on user input
