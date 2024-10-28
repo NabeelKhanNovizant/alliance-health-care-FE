@@ -2,35 +2,22 @@
     <div class="row">
         <!-- First Column: Contains details up to Date of Birth -->
         <div class="col-md-6">
-            <div class="detail">
-                <mat-icon>badge</mat-icon>
-                <span>Patient Account Number:</span>
-                <p>WJ3543168</p>
-            </div>
+            
             <div class="detail">
                 <mat-icon>person</mat-icon>
                 <span>Name:</span>
-                <p>John Doe</p>
-            </div>
-            <div class="detail">
-                <mat-icon>assignment</mat-icon>
-                <span>Assessment Name:</span>
-                <p>Initial Assessment</p>
-            </div>
-            <div class="detail">
-                <mat-icon>home</mat-icon>
-                <span>Address:</span>
-                <p>LJSDFLKHG 8436</p>
-            </div>
-            <div class="detail">
-                <mat-icon>public</mat-icon>
-                <span>Country:</span>
-                <p>San Hose</p>
+                <p>{{ patient?.firstName + ' ' + patient?.lastName }}</p>
             </div>
             <div class="detail">
                 <mat-icon>cake</mat-icon>
                 <span>Date Of Birth:</span>
-                <p>09/01/2000</p>
+                <p>{{this.patient?.dob | date: 'MM/dd/yyyy' }}</p>
+            </div>
+            <div class="detail">
+                <mat-icon *ngIf="this.patient?.gender == 'Male' ">male</mat-icon>
+                <mat-icon *ngIf="this.patient?.gender == 'Female' ">female</mat-icon>
+                <span>Gender:</span>
+                <p>{{this.patient?.gender}}</p>
             </div>
         </div>
 
@@ -39,33 +26,20 @@
             <div class="detail">
                 <mat-icon>favorite</mat-icon>
                 <span>Marital Status:</span>
-                <p>Single</p>
+                <p>{{this.patient?.maritalStatus}}</p>
             </div>
             <div class="detail">
                 <mat-icon>phone</mat-icon>
-                <span>Phone:</span>
-                <p>(368) 548-5854</p>
+                <span>Primary Phone:</span>
+                <p>{{this.patient?.primaryPhone}}</p>
             </div>
             <div class="detail">
                 <mat-icon>email</mat-icon>
                 <span>Email:</span>
-                <p>hlaugmial.com</p>
+                <p>{{this.patient?.email}}</p>
             </div>
-            <div class="detail">
-                <mat-icon>location_on</mat-icon>
-                <span>State:</span>
-                <p>Colorado</p>
-            </div>
-            <div class="detail">
-                <mat-icon>healing</mat-icon>
-                <span>Health Plan:</span>
-                <p>Health Net</p>
-            </div>
-            <div class="detail">
-                <mat-icon>healing</mat-icon>
-                <span>Previous Health Plan:</span>
-                <p>Health Net</p>
-            </div>
+            
+            
         </div>
     </div>
 </div>

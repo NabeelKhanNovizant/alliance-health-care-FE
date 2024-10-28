@@ -3,24 +3,17 @@
         <div class="col-md-6">
             <div class="detail">
                 <span>Status:</span>
-                <p>Completed</p>
+                <p>{{this.assessment?.status}}</p>
             </div>
             <div class="col-lg-2 detail">
                 <span>Name:</span>
-                <p>Enhanced Care Management Program Completion Questionnaire</p>
+                <p>{{this.assessment?.screenName}}</p>
             </div>
             <div class="detail">
                 <span>Last Updated Date:</span>
-                <p>07/27/2024</p>
+                <p>{{this.assessment?.assesmentDate | date: 'MM/dd/yyyy'}}</p>
             </div>
-            <div class="detail">
-                <span>Created Date:</span>
-                <p>07/07/2024</p>
-            </div>
-            <div class="detail">
-                <span>Time Spent:</span>
-                <p></p>
-            </div>
+            
         </div>
     </div>
 </div>

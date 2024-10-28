@@ -35,11 +35,7 @@ export class AppComponent implements OnInit {
     this.cdr.detectChanges(); 
   }
 
-//   OnSelect() {
-//     const patientId = this.patientComponent.selectedPatient.id;
-//     console.log(patientId);
-//     this.router.navigate(['/care-plan', patientId]);
-// }
+
 
 
 }

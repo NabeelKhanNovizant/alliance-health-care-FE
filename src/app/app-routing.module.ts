@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'patient', component: PatientComponent },
   { path: 'case-selection', component: CaseSelectionComponent },
   { path: 'sub-problems', component: SelectSubProblemsComponent},
-  { path: 'care-plan/:id', component: CarePlanComponent },
+  { path: 'care-plan', component: CarePlanComponent },
   { path: 'plan-view', component: PlanViewComponent},
   { path: '', redirectTo: 'patient', pathMatch: 'full' },
 
