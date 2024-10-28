@@ -1,64 +1,36 @@
 <div class="container">
-    <div class="row">
-        <!-- First Column: Contains details up to Date of Birth -->
-        <div class="col-md-6">
-            <div class="detail">
-                <span>Problem:</span>
-                <p>Asthama</p>
-            </div>
-            <div class="detail">
-                <span>Status:</span>
-                <p>Closed</p>
-            </div>
-            <div class="detail">
-                <span>Start Date:</span>
-                <p>04/06/2024</p>
-            </div>
-            
+    <div *ngFor="let problem of problems" class="row">
+      <!-- First Column: Contains details up to Start Date -->
+      <div class="col-md-6">
+        <div class="detail">
+          <span>Problem:</span>
+          <p>{{ problem.name }}</p>
         </div>
-
-        <!-- Second Column: Contains the rest of the details -->
-        <div class="col-md-6">
-            <div class="detail">
-                <span>Time Spent:</span>
-                <p>00:01:54</p>
-            </div>
-            <div class="detail">
-                <span>Close Dated:</span>
-                <p>04/07/2024</p>
-            </div>
-            
+        
+        <div class="detail">
+          <span>Start Date:</span>
+          <p>{{ problem.startDate | date: 'MM/dd/yyyy' }}</p>
         </div>
+      </div>
+    
+      <!-- Second Column: Contains Close Date and Status -->
+      <div class="col-md-6">
+        <div class="detail">
+          <span>Close Date:</span>
+          <p>{{ problem.endDate | date: 'MM/dd/yyyy' }}</p>
+        </div>
+        <div class="detail">
+          <span>Status:</span>
+          <p>{{ problem.status }}</p>
+        </div>
+      </div>
+  
+      <!-- Horizontal line separator for each problem -->
+      <div class="col-12">
+        <hr>
+      </div>
     </div>
-    <hr>
-    <div class="row">
-        <!-- First Column: Contains details up to Date of Birth -->
-        <div class="col-md-6">
-            <div class="detail">
-                <span>Problem:</span>
-                <p>Asthama</p>
-            </div>
-            <div class="detail">
-                <span>Status:</span>
-                <p>Closed</p>
-            </div>
-            <div class="detail">
-                <span>Start Date:</span>
-                <p>04/06/2024</p>
-            </div>
-        </div>
+    <p *ngIf="(carePlanModel$ | async)?.problems?.length === 0">No problems available. Add Problems</p>
 
-        <!-- Second Column: Contains the rest of the details -->
-        <div class="col-md-6">
-            <div class="detail">
-                <span>Time Spent:</span>
-                <p>00:01:54</p>
-            </div>
-            <div class="detail">
-                <span>Close Dated:</span>
-                <p>04/07/2024</p>
-            </div>
-            
-        </div>
-    </div>
-</div>
+  </div>
+  

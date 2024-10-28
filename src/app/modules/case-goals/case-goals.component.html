@@ -1,37 +1,26 @@
-<div class="container">
-    <div class="row">
-        <!-- First Column: Contains details up to Date of Birth -->
-        <div class="col-md-6">
-            <div class="detail">
-                <span>Goal:</span>
-                <p>Run 1 mile per weak</p>
-            </div>
-            <div class="detail">
-                <span>Status:</span>
-                <p>Closed</p>
-            </div>
-            <div class="detail">
-                <span>Start Date:</span>
-                <p>04/06/2024</p>
-            </div>
-            
+<div class="container" *ngIf="goals$ | async as goals">
+    <div class="row" *ngFor="let goal of goals">
+      <!-- First Column: Contains details up to Date of Birth -->
+      <div class="detail">
+        <span>Goal:</span>
+        <p style="margin-left: 70px;">{{ goal.name }}</p>
+      </div>
+      <div class="detail">
+        <span>Status:</span>
+        <p>{{ goal.status }}</p>
+      </div>
+      <div class="detail">
+        <span>Start Date:</span>
+        <p>{{ goal.startDate | date: 'MM/dd/yyyy' }}</p>
+      </div>
+      <div class="detail">
+          <span>Priority:</span>
+          <p>{{ goal.priority }}</p>
         </div>
-
-        <!-- Second Column: Contains the rest of the details -->
-        <div class="col-md-6">
-            <div class="detail">
-                <span>Priority:</span>
-                <p>Medium</p>
-            </div>
-            <div class="detail">
-                <span>Close Dated:</span>
-                <p>04/07/2024</p>
-            </div>
-            <div class="detail">
-                <span>Problem:</span>
-                <p>Asthama</p>
-            </div>
-            
-        </div>
+        <div class="detail">
+          <span>Close Date:</span>
+          <p>{{ goal.endDate | date: 'MM/dd/yyyy' }}</p>
+        </div>  
     </div>
-</div>
+  </div>
+  

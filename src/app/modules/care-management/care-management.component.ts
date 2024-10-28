@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
 import { CarePlanModel } from '../../models/care-plan-model';
@@ -9,9 +9,14 @@ import { CarePlanService } from '../services/care-plan-service.service';
   templateUrl: './care-management.component.html',
   styleUrl: './care-management.component.scss'
 })
-export class CareManagementComponent implements OnInit {
+export class CareManagementComponent implements OnInit, AfterViewInit {
   carePlanModel$ = this.carePlanService.currentCarePlanModel;
   constructor(private carePlanService: CarePlanService) {}
+  ngAfterViewInit(): void {
+    this.carePlanModel$.subscribe((model) => {
+      console.log("Care_managementPlan (async data):", model);
+    });
+  }
   ngOnInit(): void {}
 }
 

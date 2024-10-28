@@ -34,14 +34,14 @@ export class ProblemPopupComponent {
       this.problems = this.apiResponse?.cases[0].problems.map((item) => {
         return item.name;
       })!;
-      this.filteredProblem = this.problems; // Initially show all countries 
+      this.filteredProblem = this.problems; 
+      console.log("Problems Filterd", this.filteredProblem); 
     }
     else {
       console.log('Api Response is null');
     }
   }
 
-  // Method to filter countries based on user input
   onInput(value: any): void {
     this.filteredProblem = this.problems.filter((val) =>
       val.toLowerCase().includes(value.toLowerCase())
@@ -65,5 +65,7 @@ export class ProblemPopupComponent {
       this.carePlanModel?.problems.push(problem);
       this.carePlanService.updateCarePlanModel(this.carePlanModel!);
     }
+    console.log("Problems Updated",this.carePlanModel);
   }
+
 }

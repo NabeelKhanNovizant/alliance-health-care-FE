@@ -97,6 +97,6 @@ export class GoalPopupComponent {
 
       this.carePlanService.updateCarePlanModel(this.carePlanModel!);
     }
-
+    console.log('Goal saved!', this.carePlanModel);
   }
 }
