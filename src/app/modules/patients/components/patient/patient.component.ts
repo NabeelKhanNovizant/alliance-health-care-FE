@@ -26,10 +26,8 @@ export class PatientComponent implements OnInit {
   
   filteredPatients: Observable<Patient[]> | undefined;
   filteredAssessments: Observable<Assessment[]> | undefined;
-  @Output() patientSelected = new EventEmitter<Patient>();
+  @Output() canNavigate = new EventEmitter<CarePlanModel>();
 
-  selectedAssessment: Assessment | null = null;  
-  
   constructor(private patientsInfoService: PatientsInfoService) {}
 
   ngOnInit() {
@@ -68,8 +66,7 @@ export class PatientComponent implements OnInit {
 
     if (patient && patient.patientMasterId) {
       this.getAssessments(patient.patientMasterId);
-    }
-    this.patientSelected.emit(patient);
+    }    
     this.clearAssessmentSelection(); 
   }
 
@@ -89,8 +86,10 @@ export class PatientComponent implements OnInit {
   
 
   onAssessmentSelected(assessment: Assessment) {
-    this.selectedAssessment = assessment;
-    this.assessmentControl.setValue(this.selectedAssessment.screenName);
+    this.carePlanModel.assessment = assessment;
+    this.assessmentControl.setValue(assessment.screenName);
+    if(assessment && assessment.id > 0)
+      this.canNavigate.emit(this.carePlanModel);
   }
 
   private _filterPatients(value: string): any[] {
