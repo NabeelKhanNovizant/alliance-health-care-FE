@@ -2,6 +2,9 @@ import { Component, EventEmitter, Injectable, OnInit, Output } from '@angular/co
 import { FormControl } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
 import { PatientsInfoService } from '../../../services/patients-info.service';
+import { CarePlanModel } from '../../../../models/care-plan-model';
+import { Patient } from '../../../../models/patient';
+import { Assessment } from '../../../../models/assessment';
 import { PatientIdServiceService } from '../../../services/patient-id-service.service';
 import { Router } from '@angular/router';
 
@@ -18,22 +21,16 @@ import { Router } from '@angular/router';
 export class PatientComponent implements OnInit {
   patientControl = new FormControl('');
   assessmentControl = new FormControl('');
-  
-  patients: any[] = [];  
-  assessments: any[] = []; 
-  
-  filteredPatients: Observable<any[]> | undefined;
-  filteredAssessments: Observable<any[]> | undefined;
-  @Output() patientSelected = new EventEmitter<any>();
-  @Output() assessmentSelected = new EventEmitter<any>();
+  carePlanModel: CarePlanModel = new CarePlanModel();
 
-  selectedPatient: any = null;  
-  selectedAssessment: any = null;  
+  patients: Patient[] = [];  
+  assessments: Assessment[] = []; 
   
-  constructor(private patientsInfoService: PatientsInfoService,
-    private patientIdServiceService: PatientIdServiceService,
-    private router: Router
-  ) {}
+  filteredPatients: Observable<Patient[]> | undefined;
+  filteredAssessments: Observable<Assessment[]> | undefined;
+  @Output() canNavigate = new EventEmitter<CarePlanModel>();
+
+  constructor(private patientsInfoService: PatientsInfoService,private router: Router) {}
 
   ngOnInit() {
     this.filteredPatients = this.patientControl.valueChanges.pipe(
@@ -52,13 +49,7 @@ export class PatientComponent implements OnInit {
   getAllPatients(): void {
     this.patientsInfoService.getAllPatients().subscribe(
       (allPatients) => {
-        console.log("AllPatients", allPatients);
-        this.patients = allPatients.map((patient: any) => ({
-          id: patient.patientMasterId,
-          name: `${patient.firstName} ${patient.lastName}`,
-          email: patient.email,
-          dob: patient.dob
-        }));
+        this.patients = allPatients;
 
         this.filteredPatients = this.patientControl.valueChanges.pipe(
           startWith(''),
@@ -71,16 +62,20 @@ export class PatientComponent implements OnInit {
     );
   }
 
+  onPatientSelected(patient: Patient) {
+    this.carePlanModel.patient = patient;
+    this.patientControl.setValue(patient.firstName + ' ' + patient.lastName);
+
+    if (patient && patient.patientMasterId) {
+      this.getAssessments(patient.patientMasterId);
+    }    
+    this.clearAssessmentSelection(); 
+  }
+
   getAssessments(patientId: number): void {
     this.patientsInfoService.getAssessment(patientId).subscribe(
       (assessments) => {
-        console.log('Assessments fetched for patient:', assessments);
-  
-        this.assessments = assessments.map((assessment: any) => ({
-          id: assessment.id,               
-          name: assessment.screenName,      
-          date: assessment.assesmentDate    
-        }));
+        this.assessments = assessments;
   
         this.filteredAssessments = this.assessmentControl.valueChanges.pipe(
           startWith(''),
@@ -92,68 +87,57 @@ export class PatientComponent implements OnInit {
   }
   
 
-  onPatientSelected(patient: any) {
-    this.selectedPatient = patient;
-    this.patientControl.setValue(this.selectedPatient);
+  // onPatientSelected(patient: any) {
+  //   this.selectedPatient = patient;
+  //   this.patientControl.setValue(this.selectedPatient);
 
-    if (this.selectedPatient && this.selectedPatient.id) {
-      this.getAssessments(this.selectedPatient.id);
-    }
-    this.patientSelected.emit(this.selectedPatient.id);
-    this.patientIdServiceService.selectPatient(this.selectedPatient.id);
-    console.log('Patient selected:', this.selectedPatient.id);
+  //   if (this.selectedPatient && this.selectedPatient.id) {
+  //     this.getAssessments(this.selectedPatient.id);
+  //   }
+  //   this.patientSelected.emit(this.selectedPatient.id);
+  //   this.patientIdServiceService.selectPatient(this.selectedPatient.id);
+  //   console.log('Patient selected:', this.selectedPatient.id);
 
-    this.clearAssessmentSelection(); 
-  }
-  onAssessmentSelected(assessment: any) {
-    this.selectedAssessment = assessment;
-    this.assessmentControl.setValue(this.selectedAssessment);
+  //   this.clearAssessmentSelection(); 
+  // }
+  onAssessmentSelected(assessment: Assessment) {
+    this.carePlanModel.assessment = assessment;
+    this.assessmentControl.setValue(assessment.screenName);
+    if(assessment && assessment.id > 0)
+      this.canNavigate.emit(this.carePlanModel);
 
-    this.patientIdServiceService.selectAssessment(this.selectedAssessment.id);
-    console.log('Assessment selected:', this.selectedAssessment.id);
+    // this.patientIdServiceService.selectAssessment(this.selectedAssessment.id);
+    // console.log('Assessment selected:', this.selectedAssessment.id);
   }
   onSelect() {
-    if (this.selectedAssessment?.id) {
-      this.router.navigate(['/care-plan', this.selectedPatient.id]);
-    }
+      this.router.navigate(['/care-plan']);
   }
 
   private _filterPatients(value: string): any[] {
     const filterValue = this._normalizeValue(value);
     return this.patients.filter(patient =>
-      this._normalizeValue(patient.name).includes(filterValue)
+      this._normalizeValue(patient.firstName + ' ' + patient.lastName).includes(filterValue)
     );
   }
 
   private _filterAssessments(value: string): any[] {
     const filterValue = this._normalizeValue(value);
-  
-    return this.assessments.filter(assessment => {
-      const nameMatches = this._normalizeValue(assessment.name).includes(filterValue);
-      
-      // Format date as MM/DD/YYYY for filtering
-      const formattedDate = new Date(assessment.date).toLocaleDateString('en-US');
-      const dateMatches = this._normalizeValue(formattedDate).includes(filterValue);
-      
-      return nameMatches || dateMatches;
-    });
+    return this.assessments.filter(assessment =>
+      this._normalizeValue(assessment.screenName).includes(filterValue)
+    );
   }
-  
 
-  private _normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '');
+  private _normalizeValue(value: string): string {    
+    
+      return (value + "").toLocaleLowerCase().replace(/\s/g, '');
   }
 
   displayPatient(patient: any): string {
-    return patient ? patient.name : '';
+    return patient ? patient : '';
   }
 
   displayAssessment(assessment: any): string {
-    if (assessment) {
-      const formattedDate = new Date(assessment.date).toLocaleDateString('en-US');
-      return `${assessment.name} | ${formattedDate}`;
-    }
-    return '';
+    return assessment ? assessment : '';
   }
   
 
@@ -164,13 +148,13 @@ export class PatientComponent implements OnInit {
   }
 
   clearPatientSelection() {
-    this.selectedPatient = null;
+    this.carePlanModel.patient = null;
     this.patientControl.setValue('');
     this.assessments = [];  
   }
 
   clearAssessmentSelection() {
-    this.selectedAssessment = null;
+    this.carePlanModel.assessment = null;
     this.assessmentControl.setValue('');
   }
 }
