@@ -9,16 +9,12 @@ import { CarePlanService } from '../services/care-plan-service.service';
   templateUrl: './care-management.component.html',
   styleUrl: './care-management.component.scss'
 })
-export class CareManagementComponent implements OnInit  {
-  carePlanModel: CarePlanModel | null = null;
-  constructor(private carePlanService: CarePlanService){}
-  ngOnInit(): void {
-    this.carePlanService.currentCarePlanModel.subscribe((model) => {
-      this.carePlanModel = model;
-      console.log('Care Plan Model:', this.carePlanModel);
-    });
-  }
+export class CareManagementComponent implements OnInit {
+  carePlanModel$ = this.carePlanService.currentCarePlanModel;
+  constructor(private carePlanService: CarePlanService) {}
+  ngOnInit(): void {}
 }
+
   // caseControl = new FormControl();
   // cases: string[] = [
   //   'Diabetes Mellitus',

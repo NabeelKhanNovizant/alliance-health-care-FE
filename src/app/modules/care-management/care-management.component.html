@@ -1,53 +1,44 @@
-<div class="container">
+<div class="container" *ngIf="carePlanModel$ | async as carePlanModel">
     <div class="row">
-        <!-- First Column: Contains details up to Date of Birth -->
         <div class="col-md-6">
-            
             <div class="detail">
                 <span>Case Name:</span>
-                <p>{{ carePlanModel?.caseName }}</p>
+                <p>{{ carePlanModel.caseName }}</p>
             </div>
-
             <div class="detail">
-                <span>Case Equity:</span>
-                <p>{{ carePlanModel?.caseAcuity }}</p>
+                <span>Case Acuity:</span>
+                <p>{{ carePlanModel.caseAcuity }}</p>
             </div>
-
             <div class="detail">
                 <span>Source:</span>
-                <p>{{ carePlanModel?.caseSource }}</p>
+                <p>{{ carePlanModel.caseSource }}</p>
             </div>
             <div class="detail">
                 <span>Description:</span>
-                <p>{{ carePlanModel?.description }}</p>
+                <p>{{ carePlanModel.description }}</p>
             </div>
             <div class="detail">
                 <span>Note:</span>
-                <p>{{ carePlanModel?.note }}</p>
+                <p>{{ carePlanModel.note }}</p>
             </div>
-            
         </div>
-
-        <!-- Second Column: Contains the rest of the details -->
         <div class="col-md-6">
             <div class="detail">
                 <span>Primary Contact:</span>
-                <p>{{ carePlanModel?.primaryContact }}</p>
+                <p>{{ carePlanModel.primaryContact }}</p>
             </div>
             <div class="detail">
                 <span>Main Diagnosis:</span>
-                <p>{{ carePlanModel?.mainDiagnosis }}</p>
+                <p>{{ carePlanModel.mainDiagnosis }}</p>
             </div>
             <div class="detail">
                 <span>Additional Diagnosis:</span>
-                <p>{{ carePlanModel?.additionalDiagnosis }}</p>
+                <p>{{ carePlanModel.additionalDiagnosis }}</p>
             </div>
             <div class="detail">
                 <span>Additional Other Diagnosis:</span>
-                <p>{{ carePlanModel?.AdditionalOtherDiagnosis }}</p>
+                <p>{{ carePlanModel.AdditionalOtherDiagnosis }}</p>
             </div>
-            
-            
         </div>
     </div>
 </div>
