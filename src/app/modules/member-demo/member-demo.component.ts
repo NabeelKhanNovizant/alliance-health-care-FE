@@ -34,18 +34,6 @@ export class MemberDemoComponent  {
     console.log('DEMO:', this.patientId);
     // this.getcarePlan(this.assessmentId);
   }
-
-  // getcarePlan(assessmentId: number): void {
-  //   this.patientsInfoService.getCarePlan(this.assessmentId).subscribe(
-  //     (carePlan) => {
-  //       console.log('Care Plan fetched for assessment:', carePlan);
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching care plan:', error);
-  //     }
-  //   );
-  // }
-
   getAllPatients(): void {
     this.patientsInfoService.getAllPatients().subscribe(
       (allPatients) => {
@@ -77,5 +65,14 @@ export class MemberDemoComponent  {
   private _normalizeValue(value: string): string {
     return value.toLowerCase().replace(/\s/g, '');
   }
-
 }
+  // getcarePlan(assessmentId: number): void {
+  //   this.patientsInfoService.getCarePlan(this.assessmentId).subscribe(
+  //     (carePlan) => {
+  //       console.log('Care Plan fetched for assessment:', carePlan);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching care plan:', error);
+  //     }
+  //   );
+  // }
