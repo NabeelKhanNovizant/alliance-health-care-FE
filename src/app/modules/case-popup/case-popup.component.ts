@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { PatientsInfoService } from '../services/patients-info.service';
+import { CarePlanService } from '../services/care-plan-service.service';
+import { Assessment } from '../../models/assessment';
+import { ApiResponse } from '../../models/api-response';
 
 @Component({
   selector: 'app-case-popup',
@@ -6,13 +10,10 @@ import { Component } from '@angular/core';
   styleUrl: './case-popup.component.scss'
 })
 export class CasePopupComponent {
-  countries: string[] = ['India', 'Pakistan', 'Australia', 'Canada', 'USA'];
-  case: string[] = ['Case 1', 'Case 2', 'Case 3'];
   case_equity: string[] = ['Low - Monthly', 'Medium - Bimonthly', 'High - Weekly', 'Catastrophic'];
   case_source: string[] = ['Member (Self Referral)', 'Care Management', 'Primary Care Physician', 'Specialist', 'Triage'];
 
-  filteredCountries: string[] = [];
-  selectedCountry: string = '';
+  carePlanAPI: ApiResponse | null = null;
 
   filteredCase: string[] = [];
   selectedCase: string = '';
@@ -22,31 +23,43 @@ export class CasePopupComponent {
 
   filteredSource: string[] = [];
   selectedSource: string = '';
+  caseName: string[] = [];
 
+  apiResponse: ApiResponse | null = null;
 
-  constructor() {
-    //this.filteredCountries = this.countries; // Initially show all countries
-    this.filteredCase = this.case; // Initially show all countries
-    this.filteredEquity = this.case_equity; // Initially show all countries
-    this.filteredSource = this.case_source; // Initially show all countries
+  constructor(private patientsInfoService: PatientsInfoService,
+    private carePlanService: CarePlanService
+  ) {
+    this.filteredCase = this.caseName; 
+    this.filteredEquity = this.case_equity; 
+    this.filteredSource = this.case_source; 
   }
 
   ngOnInit() {
-    // If needed, you can perform additional logic here
-  }
+    this.loadCases();
+    }
 
-  // Method to filter countries based on user input
-  onInput(value: any): void {
-    this.filteredCountries = this.countries.filter((country) =>
-      country.toLowerCase().includes(value.toLowerCase())
+    loadCases(){
+      this.apiResponse = this.carePlanService.apiResponse;
+      if(this.apiResponse && this.apiResponse.cases.length > 0) {
+        
+        this.caseName = this.apiResponse?.cases.map(item => {
+          return item.name;
+        });
+        this.filteredCase = this.caseName;
+        console.log("getting cases", this.caseName);
+      }
+       else {
+        console.log("No cases found");
+       } 
+    }
+  onCaseInput(event: Event): void {
+    const input = (event.target as HTMLInputElement).value;
+    this.filteredCase = this.caseName.filter((val) =>
+      val.toLowerCase().includes(input.toLowerCase())
     );
   }
-
-  onCaseInput(value: any): void {
-    this.filteredCase = this.case.filter((val) =>
-      val.toLowerCase().includes(value.toLowerCase())
-    );
-  }
+  
 
   onCaseEquityInput(value: any): void {
     this.filteredEquity = this.case_equity.filter((val) =>

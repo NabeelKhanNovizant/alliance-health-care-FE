@@ -3,22 +3,6 @@
 <mat-dialog-content class="mat-typography">
 
     <div class="d-flex flex-column">
-        <!-- <mat-form-field appearance="fill">
-        <input
-        type="text"
-        placeholder="Case"
-        matInput
-        [matAutocomplete]="auto"
-        [(ngModel)]="selectedCountry"
-        name="case"
-        (input)="onInput($event)"
-        />
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let country of filteredCountries" [value]="country">
-            {{ country }}
-          </mat-option>
-        </mat-autocomplete>
-    </mat-form-field> -->
 
     <mat-form-field appearance="fill">
         <input
@@ -27,7 +11,7 @@
         matInput
         [matAutocomplete]="auto1"
         [(ngModel)]="selectedCase"
-        name="case"
+        name="caseName"
         (input)="onCaseInput($event)"
         />
         <mat-autocomplete #auto1="matAutocomplete">

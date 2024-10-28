@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs'; // Import Observable
+import { ApiResponse } from '../../models/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +21,9 @@ export class PatientsInfoService {
     return this.http.get(url);
   }
 
-  getCarePlan(assessmentId: number): Observable<any>{
+  getCarePlan(assessmentId: number): Observable<ApiResponse>{
     const url = `${this.baseUrl}Careplan/${assessmentId}`;
-    return this.http.get(url);
+    return this.http.get<ApiResponse>(url);
   }
   
 }

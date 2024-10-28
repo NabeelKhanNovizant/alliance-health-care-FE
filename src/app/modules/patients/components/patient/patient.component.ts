@@ -106,10 +106,21 @@ export class PatientComponent implements OnInit {
   }
   
 
-  onSelect() {
+  onGenrateCarePlan() {
+    if(this.carePlanModel && this.carePlanModel.patient && this.carePlanModel.assessment) {
+      this.patientsInfoService.getCarePlan(this.carePlanModel.assessment.id).subscribe(
+        (resp) => {
+          this.carePlanService.updateApiResponse(resp);
+          
+        },
+        (error) => {
+          console.error('Error fetching care plan:', error);
+        }
+      );
     if (this.patients) {
       this.router.navigate(['/care-plan']);
     }
+  }
   }
 
   private _filterPatients(value: string): any[] {
