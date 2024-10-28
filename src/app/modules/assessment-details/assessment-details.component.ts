@@ -18,7 +18,7 @@ export class AssessmentDetailsComponent {
 
   ngOnInit() {
     this.carePlanService.currentCarePlanModel.subscribe((model) => {
-      this.assessment = model?.assessment || null;  // Get only the patient field
+      this.assessment = model?.assessment || null;  
       console.log('Assessment in Care Plan Model:', this.assessment);
     });
   }
