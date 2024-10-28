@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { CarePlanService } from '../services/care-plan-service.service';
+import { CarePlanGoal, CarePlanModel } from '../../models/care-plan-model';
+import { ApiResponse } from '../../models/api-response';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-goal-popup',
@@ -7,35 +11,45 @@ import { Component } from '@angular/core';
 })
 export class GoalPopupComponent {
 
-  problems: string[] = [ 'Level I - Disease/Health Management', 'Level II - Case Management', 'Level II - Complex Care Managment', 'Transition of Care (ToC)', 'MAT' ,'Enhanced Care Management (ECM)'];
-    
+  problems: string[] = [ ];    
   filteredProblem: string[] = [];
   selectedProblem: string = '';
 
-  status: string[] = [ 'Open', 'InProgress', 'Closed'];
-    
+  status: string[] = [ 'Open', 'InProgress', 'Closed'];    
   filteredStatus: string[] = [];
-  selectedStatu: string = '';
+  selectedStatu: string = 'Open';
 
-  goals: string[] = [ 'Goal 1', 'Goal 2', 'Goal 3'];
-    
+  goals: string[] = [ ];    
   filteredgoals: string[] = [];
   selectedgoal: string = '';
 
-  priorities: string[] = [ 'Low', 'Medium', 'High'];
-    
+  priorities: string[] = [ 'Low', 'Medium', 'High'];    
   filteredpriorities: string[] = [];
-  selectedpriorities: string = '';
+  selectedpriorities: string = 'Low';
 
-  constructor() {    
-    this.filteredProblem = this.problems; // Initially show all countries    
-    this.filteredStatus = this.status; // Initially show all countries 
-    this.filteredgoals = this.goals; // Initially show all countries 
+  carePlanModel: CarePlanModel | null = null;
+  apiResponse: ApiResponse | null = null;
+  startDate: Date | any;
+  endDate: Date |any;
+  
+  constructor(private carePlanService: CarePlanService) {        
+    this.filteredStatus = this.status; // Initially show all countries     
     this.filteredpriorities = this.priorities; // Initially show all countries     
   }
 
   ngOnInit() {
-    // If needed, you can perform additional logic here
+    this.apiResponse = this.carePlanService.apiResponse;
+    this.carePlanService.currentCarePlanModel.subscribe((model) => {
+      this.carePlanModel = model;
+      console.log('Model in goal', this.carePlanModel);
+      this.problems = this.carePlanModel?.problems.map(p => {
+        return p.name;
+      })!;
+      console.log('problems in goal', this.problems);
+      this.filteredProblem = this.problems; // Initially show all countries    
+    });
+    
+    
   }
 
   // Method to filter countries based on user input
@@ -61,5 +75,30 @@ export class GoalPopupComponent {
     this.filteredpriorities = this.priorities.filter((val) =>
       val.toLowerCase().includes(value.toLowerCase())
     );
+  }
+  onProblemSelected($event: MatAutocompleteSelectedEvent) {
+    var problemModel = this.apiResponse?.cases[0].problems.find(p => p.name == $event.option.value);
+    this.goals = problemModel?.goals.map(g => {
+      return g.name;
+    })!;
+    console.log('goals = ', this.goals);
+    this.filteredgoals = this.goals; // Initially show all countries 
+  }
+  OnSaveGoal() {
+    if(this.selectedProblem && this.selectedgoal && this.selectedStatu && this.startDate && this.endDate) {
+      let goal = new CarePlanGoal();
+      goal.name = this.selectedgoal;
+      goal.problemName = this.selectedProblem;
+      goal.status = this.selectedStatu;
+      goal.priority = this.selectedpriorities;
+      goal.startDate = this.startDate
+      goal.endDate = this.endDate;
+      
+      let problemModel = this.carePlanModel?.problems.find(p => p.name == this.selectedProblem);
+      problemModel?.goals.push(goal);
+
+      this.carePlanService.updateCarePlanModel(this.carePlanModel!);
+    }
+
   }
 }

@@ -16,7 +16,7 @@
         name="problem"
         (input)="onInput($event)"
         />
-        <mat-autocomplete #auto1="matAutocomplete">
+        <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="onProblemSelected($event)">
           <mat-option *ngFor="let val1 of filteredProblem" [value]="val1">
             {{ val1 }}
           </mat-option>
@@ -33,7 +33,7 @@
         name="goal"
         (input)="onInputGoal($event)"
         />
-        <mat-autocomplete #auto2="matAutocomplete">
+        <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="onGoalSelected($event)">
           <mat-option *ngFor="let val1 of filteredgoals" [value]="val1">
             {{ val1 }}
           </mat-option>
@@ -66,7 +66,7 @@
    
     <mat-form-field>
         <mat-label>Start Date</mat-label>
-        <input matInput [matDatepicker]="picker">
+        <input matInput [matDatepicker]="picker"  [(ngModel)]="startDate">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -74,7 +74,7 @@
 
       <mat-form-field>
         <mat-label>Close Date</mat-label>
-        <input matInput [matDatepicker]="picker2">
+        <input matInput [matDatepicker]="picker2"  [(ngModel)]="endDate">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
@@ -130,5 +130,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end" class="mt-4 mb-4">
   <button mat-stroked-button mat-dialog-close>Close</button>
-  <button color="primary" mat-flat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+  <button color="primary" mat-flat-button [mat-dialog-close]="true" (click)="OnSaveMilestone()" cdkFocusInitial>Save</button>
 </mat-dialog-actions>

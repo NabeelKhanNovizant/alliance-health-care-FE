@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { CarePlanModel, CarePlanProblem } from '../../models/care-plan-model';
+import { CarePlanService } from '../services/care-plan-service.service';
+import { ApiResponse } from '../../models/api-response';
 
 @Component({
   selector: 'app-problem-popup',
@@ -6,24 +9,36 @@ import { Component } from '@angular/core';
   styleUrl: './problem-popup.component.scss'
 })
 export class ProblemPopupComponent {
-
-  problems: string[] = [ 'Level I - Disease/Health Management', 'Level II - Case Management', 'Level II - Complex Care Managment', 'Transition of Care (ToC)', 'MAT' ,'Enhanced Care Management (ECM)'];
+  carePlanModel: CarePlanModel | null = null;
+  apiResponse: ApiResponse | null = null;
+  problems: string[] = [ ];
     
   filteredProblem: string[] = [];
   selectedProblem: string = '';
 
-  status: string[] = [ 'Open', 'InProgress', 'Closed'];
-    
+  status: string[] = [ 'Open', 'InProgress', 'Closed'];    
   filteredStatus: string[] = [];
   selectedStatu: string = '';
+  startDate: Date | any;
+  endDate: Date | any;
 
-  constructor() {    
-    this.filteredProblem = this.problems; // Initially show all countries    
+  constructor(private carePlanService: CarePlanService) {       
     this.filteredStatus = this.status; // Initially show all countries    
-  }
-
-  ngOnInit() {
-    // If needed, you can perform additional logic here
+  }  
+  ngOnInit() {    
+    this.carePlanService.currentCarePlanModel.subscribe((model) => {
+      this.carePlanModel = model;       
+    });
+    this.apiResponse = this.carePlanService.apiResponse;
+    if(this.apiResponse && this.apiResponse.cases.length > 0) {
+      this.problems = this.apiResponse?.cases[0].problems.map((item) => {
+        return item.name;
+      })!;
+      this.filteredProblem = this.problems; // Initially show all countries 
+    }
+    else {
+      console.log('Api Response is null');
+    }
   }
 
   // Method to filter countries based on user input
@@ -38,5 +53,17 @@ export class ProblemPopupComponent {
       val.toLowerCase().includes(value.toLowerCase())
     );
   }
+  SaveProblem() {
+    if(this.selectedProblem && this.selectedStatu && this.startDate && this.endDate)
+    {
+      let problem = new CarePlanProblem();
+      problem.name = this.selectedProblem;
+      problem.status = this.selectedStatu;
+      problem.startDate = this.startDate;
+      problem.endDate = this.endDate;
 
+      this.carePlanModel?.problems.push(problem);
+      this.carePlanService.updateCarePlanModel(this.carePlanModel!);
+    }
+  }
 }
