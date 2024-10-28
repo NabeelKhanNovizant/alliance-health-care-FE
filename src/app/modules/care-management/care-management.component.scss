@@ -1,25 +1,24 @@
-.list-group {
-    position: absolute;
-    z-index: 1000;
-    width: 100%;
-  }
-  .form-label {
-    margin-bottom: .5rem;
-    width: 200px;
+.detail {
     display: flex;
-    align-items: center;
+    align-items: center; /* Changed from 'end' to 'center' */
+    margin: 8px 0px;
+    padding: 0px 0;
+    font-size: 13px;
+}
+
+mat-icon {
+    margin-right: 10px;
+    color: #757575;
+}
+
+span {
     font-weight: 500;
+    width: 160px;
     color: #333;
 }
 
-.form-label-drop{
-    width: 134px;
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-    color: #333;
-}
-
-.example-full-width{
-    width: 280px;
+p {
+    margin: 0;
+    color: #555;
+    font-size: 12px;
 }

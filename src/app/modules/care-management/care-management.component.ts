@@ -1,15 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
+import { CarePlanModel } from '../../models/care-plan-model';
+import { CarePlanService } from '../services/care-plan-service.service';
 
 @Component({
   selector: 'app-care-management',
   templateUrl: './care-management.component.html',
   styleUrl: './care-management.component.scss'
 })
-export class CareManagementComponent {
-
-  
+export class CareManagementComponent implements OnInit  {
+  carePlanModel: CarePlanModel | null = null;
+  constructor(private carePlanService: CarePlanService){}
+  ngOnInit(): void {
+    this.carePlanService.currentCarePlanModel.subscribe((model) => {
+      this.carePlanModel = model;
+      console.log('Care Plan Model:', this.carePlanModel);
+    });
+  }
 }
   // caseControl = new FormControl();
   // cases: string[] = [
