@@ -1,8 +1,32 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
+import { CasePopupComponent } from '../../case-popup/case-popup.component';
+import { ProblemPopupComponent } from '../../problem-popup/problem-popup.component';
+import { MilestonePopupComponent } from '../../milestone-popup/milestone-popup.component';
+import { GoalPopupComponent } from '../../goal-popup/goal-popup.component';
 import { ActivatedRoute } from '@angular/router';
 
+
+interface TreeNode {
+  name: string;
+  children?: TreeNode[];
+}
+
+interface FlatNode {
+  expandable: boolean;
+  name: string;
+  level: number;
+  checked?: boolean;
+}
+
+/** Flat node with expandable and level information */
+interface ExampleFlatNode {
+  expandable: boolean;
+  name: string;
+  level: number;
+}
 @Component({
   selector: 'app-care-plan',
   templateUrl: './care-plan.component.html',
@@ -11,11 +35,13 @@ import { ActivatedRoute } from '@angular/router';
 
 })
 export class CarePlanComponent {
-  assessmentId!: string;
+  assessmentId!: number;
 
+  readonly panelOpenState = signal(false);
 
-  constructor(private route: ActivatedRoute) {}
-
+ 
+  constructor(private dialog: MatDialog,private route: ActivatedRoute) {
+  }
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.assessmentId = params['id'];
@@ -28,8 +54,54 @@ export class CarePlanComponent {
   private loadPatientData() {
     console.log('Loading patient data for ID:', this.assessmentId);
   }
+  opeCaseDialog(): void {
+    const dialogRef = this.dialog.open(CasePopupComponent, {
+      width: '600px',
+      data: {}, // Optional: Pass data if needed
+    });
 
-  onPatientSelected(event: any) {
-    // Handle patient selection if needed
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog closed, selected country:', result);
+    });
+  }
+
+  opeProblemDialog(): void {
+    const dialogRef = this.dialog.open(ProblemPopupComponent, {
+      width: '600px',
+      data: {}, // Optional: Pass data if needed
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog closed, selected country:', result);
+    });
+  }
+
+  opeGoalDialog(): void {
+    const dialogRef = this.dialog.open(GoalPopupComponent, {
+      width: '600px',
+      data: {}, // Optional: Pass data if needed
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog closed, selected country:', result);
+    });
+  }
+
+  opeMilestoneDialog(): void {
+    const dialogRef = this.dialog.open(MilestonePopupComponent, {
+      width: '600px',
+      data: {}, // Optional: Pass data if needed
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog closed, selected country:', result);
+    });
+  }
+
+  hasChild = (_: number, node: FlatNode) => node.expandable;
+
+  onCheckboxChange(node: FlatNode) {
+    node.checked = !node.checked;
+    console.log(`${node.name} is checked: ${node.checked}`);
   }
 }
