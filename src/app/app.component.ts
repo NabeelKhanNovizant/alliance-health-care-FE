@@ -15,13 +15,11 @@ export class AppComponent implements OnInit {
 
   @ViewChild(PatientComponent) patientComponent!: PatientComponent;
   SelectedPatient: any = null;
-  showContent: boolean = true; // To toggle content visibility
+  showContent: boolean = true;
 
   constructor(private router: Router, private cdr: ChangeDetectorRef) {
-    // Subscribe to router events to detect route changes
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        // Check if the current route is '/care-plan'
         this.showContent = event.url !== '/care-plan';
       }
     });
@@ -38,34 +36,10 @@ export class AppComponent implements OnInit {
   }
 
   OnSelect() {
-    console.log(this.patientComponent.selectedPatient);
-    // Navigate to the care plan component
-    this.router.navigate(['/care-plan']);
-  }
+    const patientId = this.patientComponent.selectedPatient.id;
+    console.log(patientId);
+    this.router.navigate(['/care-plan', patientId]);
+}
+
 
 }
-  // onStepChange(event: any) {
-  //   this.currentStep = event.selectedIndex; // Track step change
-  //   if (this.currentStep === 0) {
-  //     this.router.navigate(['/patient']); // Show patient component
-  //   } 
-  //   else if (this.currentStep === 1) {
-  //     this.router.navigate(['/case-selection']); // Show case component
-  //   } 
-  //   else if (this.currentStep === 2) {
-  //     this.router.navigate(['/care-plan']); // Show problem component
-  //   }
-  //   else if (this.currentStep === 3) {
-  //     this.router.navigate(['/plan-view']); // Show problem component
-  //   }
-  //   else {
-  //     console.log('No route for the current step');
-  //   }
-  // }
-  // Form groups for stepper
-  // firstFormGroup = this._formBuilder.group({
-  //   firstCtrl: ['', Validators.required],
-  // });
-  // secondFormGroup = this._formBuilder.group({
-  //   secondCtrl: ['', Validators.required],
-  // });

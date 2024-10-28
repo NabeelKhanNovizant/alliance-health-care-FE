@@ -19,5 +19,10 @@ export class PatientsInfoService {
     const url = `${this.baseUrl}Assessments/${patientId}`;
     return this.http.get(url);
   }
+
+  getCarePlan(assessmentId: number): Observable<any>{
+    const url = `${this.baseUrl}Careplan/${assessmentId}`;
+    return this.http.get(url);
+  }
   
 }

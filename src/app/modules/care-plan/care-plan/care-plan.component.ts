@@ -1,26 +1,8 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
+import { ActivatedRoute } from '@angular/router';
 
-
-interface TreeNode {
-  name: string;
-  children?: TreeNode[];
-}
-
-interface FlatNode {
-  expandable: boolean;
-  name: string;
-  level: number;
-  checked?: boolean;
-}
-
-/** Flat node with expandable and level information */
-interface ExampleFlatNode {
-  expandable: boolean;
-  name: string;
-  level: number;
-}
 @Component({
   selector: 'app-care-plan',
   templateUrl: './care-plan.component.html',
@@ -29,60 +11,25 @@ interface ExampleFlatNode {
 
 })
 export class CarePlanComponent {
-  readonly panelOpenState = signal(false);
+  assessmentId!: string;
 
-  private transformer = (node: TreeNode, level: number): FlatNode => {
-    return {
-      expandable: !!node.children && node.children.length > 0,
-      name: node.name,
-      level: level,
-      checked: false, // Initialize the checked state
-    };
-  };
 
-  // Create tree control and flattener
-  treeControl = new FlatTreeControl<FlatNode>(
-    (node) => node.level,
-    (node) => node.expandable
-  );
+  constructor(private route: ActivatedRoute) {}
 
-  treeFlattener = new MatTreeFlattener(
-    this.transformer,
-    (node) => node.level,
-    (node) => node.expandable,
-    (node) => node.children
-  );
-
-  // Create the data source for the tree using treeControl and treeFlattener
-  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-  treeData: TreeNode[] = [
-    {
-      name: 'Goal 1',
-      children: [
-        { name: 'Milestone/Barriers' },
-        { name: 'Milestone/Barriers' },
-        { name: 'Milestone/Barriers' },
-      ],
-    },
-    {
-      name: 'Goal 2',
-      children: [
-        { name: 'Milestone/Barriers' },
-        { name: 'Milestone/Barriers' },
-        { name: 'Milestone/Barriers' },
-      ],
-    },
-  ];
-
-  constructor() {
-    this.dataSource.data = this.treeData;
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.assessmentId = params['id'];
+      if (this.assessmentId) {
+        this.loadPatientData();
+      }
+    });
   }
 
-  hasChild = (_: number, node: FlatNode) => node.expandable;
+  private loadPatientData() {
+    console.log('Loading patient data for ID:', this.assessmentId);
+  }
 
-  onCheckboxChange(node: FlatNode) {
-    node.checked = !node.checked;
-    console.log(`${node.name} is checked: ${node.checked}`);
+  onPatientSelected(event: any) {
+    // Handle patient selection if needed
   }
 }

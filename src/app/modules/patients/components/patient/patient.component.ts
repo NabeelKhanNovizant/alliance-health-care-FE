@@ -2,6 +2,8 @@ import { Component, EventEmitter, Injectable, OnInit, Output } from '@angular/co
 import { FormControl } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
 import { PatientsInfoService } from '../../../services/patients-info.service';
+import { PatientIdServiceService } from '../../../services/patient-id-service.service';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -28,7 +30,10 @@ export class PatientComponent implements OnInit {
   selectedPatient: any = null;  
   selectedAssessment: any = null;  
   
-  constructor(private patientsInfoService: PatientsInfoService) {}
+  constructor(private patientsInfoService: PatientsInfoService,
+    private patientIdServiceService: PatientIdServiceService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.filteredPatients = this.patientControl.valueChanges.pipe(
@@ -47,6 +52,7 @@ export class PatientComponent implements OnInit {
   getAllPatients(): void {
     this.patientsInfoService.getAllPatients().subscribe(
       (allPatients) => {
+        console.log("AllPatients", allPatients);
         this.patients = allPatients.map((patient: any) => ({
           id: patient.patientMasterId,
           name: `${patient.firstName} ${patient.lastName}`,
@@ -94,7 +100,7 @@ export class PatientComponent implements OnInit {
       this.getAssessments(this.selectedPatient.id);
     }
     this.patientSelected.emit(this.selectedPatient.id);
-
+    this.patientIdServiceService.selectPatient(this.selectedPatient.id);
     console.log('Patient selected:', this.selectedPatient.id);
 
     this.clearAssessmentSelection(); 
@@ -102,8 +108,14 @@ export class PatientComponent implements OnInit {
   onAssessmentSelected(assessment: any) {
     this.selectedAssessment = assessment;
     this.assessmentControl.setValue(this.selectedAssessment);
-    this.assessmentSelected.emit(this.selectedAssessment.id);
+
+    this.patientIdServiceService.selectAssessment(this.selectedAssessment.id);
     console.log('Assessment selected:', this.selectedAssessment.id);
+  }
+  onSelect() {
+    if (this.selectedAssessment?.id) {
+      this.router.navigate(['/care-plan', this.selectedPatient.id]);
+    }
   }
 
   private _filterPatients(value: string): any[] {
