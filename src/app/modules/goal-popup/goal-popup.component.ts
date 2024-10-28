@@ -41,11 +41,9 @@ export class GoalPopupComponent {
     this.apiResponse = this.carePlanService.apiResponse;
     this.carePlanService.currentCarePlanModel.subscribe((model) => {
       this.carePlanModel = model;
-      console.log('Model in goal', this.carePlanModel);
       this.problems = this.carePlanModel?.problems.map(p => {
         return p.name;
       })!;
-      console.log('problems in goal', this.problems);
       this.filteredProblem = this.problems; // Initially show all countries    
     });
     
