@@ -60,7 +60,7 @@ export class MilestonePopupComponent {
 
   onInput(value: any): void {
     this.filteredProblem = this.problems.filter((val) =>
-      val.toLowerCase().includes((value + "").toLowerCase())
+      val.toLowerCase().includes(value.toLowerCase())
     );
   }
 
@@ -96,7 +96,7 @@ export class MilestonePopupComponent {
   }
 
   onProblemSelected($event: MatAutocompleteSelectedEvent) {
-    var problemModel = this.carePlanModel?.problems.find(p => p.name == $event.option.value);
+    var problemModel = this.apiResponse?.cases[0].problems.find(p => p.name == $event.option.value);
     this.goals = problemModel?.goals.map(g => {
       return g.name;
     })!; 
@@ -133,5 +133,3 @@ export class MilestonePopupComponent {
     );
   }
 }
-
-

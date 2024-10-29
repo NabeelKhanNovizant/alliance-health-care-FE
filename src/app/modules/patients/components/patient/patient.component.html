@@ -9,13 +9,14 @@
                  [formControl]="patientControl"
                  [matAutocomplete]="autoPatient"
                  class="formControl">
-          <mat-autocomplete #autoPatient="matAutocomplete"
-                            (optionSelected)="onPatientSelected($event.option.value)"
-                            [displayWith]="displayPatient">
-            <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
-              {{ patient.firstName + ' ' + patient.lastName }} <!-- Show only the full name -->
-            </mat-option>
-          </mat-autocomplete>
+                 <mat-autocomplete #autoPatient="matAutocomplete" 
+                 (optionSelected)="onPatientSelected($event.option.value)" 
+                 [displayWith]="displayPatient">
+                  <mat-option *ngFor="let patient of filteredPatients | async; let isLast = last" [value]="patient">
+                    {{ patient.firstName + ' ' + patient.lastName }}
+                  </mat-option>
+                </mat-autocomplete>
+                
           <button mat-icon-button matSuffix *ngIf="patientControl.value" (click)="clearSelection()">
             <mat-icon>close</mat-icon>
           </button>

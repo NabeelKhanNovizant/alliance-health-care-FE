@@ -4,6 +4,7 @@ import { CarePlanService } from '../services/care-plan-service.service';
 import { Assessment } from '../../models/assessment';
 import { ApiResponse } from '../../models/api-response';
 import { CarePlanModel } from '../../models/care-plan-model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-case-popup',
@@ -11,6 +12,7 @@ import { CarePlanModel } from '../../models/care-plan-model';
   styleUrl: './case-popup.component.scss'
 })
 export class CasePopupComponent {
+  caseForm: FormGroup;
   // Existing properties
   case_equity: string[] = ['Low - Monthly', 'Medium - Bimonthly', 'High - Weekly', 'Catastrophic'];
   case_source: string[] = ['Member (Self Referral)', 'Care Management', 'Primary Care Physician', 'Specialist', 'Triage'];
@@ -34,19 +36,47 @@ export class CasePopupComponent {
 
   constructor(
     private patientsInfoService: PatientsInfoService,
-    private carePlanService: CarePlanService
+    private carePlanService: CarePlanService,
+    private fb: FormBuilder
   ) {
+
     this.filteredCase = this.caseName;
     this.filteredEquity = this.case_equity;
     this.filteredSource = this.case_source;
+    this.caseForm = this.fb.group({
+      caseName: ['', Validators.required],
+      caseEquity: ['', Validators.required],
+      source: ['', Validators.required],
+      description: [''],
+      note: [''],
+      primaryContact: ['', Validators.required],
+      mainDiagnosis: ['', Validators.required],
+      additionalDiagnosis: [''],
+      additionalOtherDiagnosis: ['']
+    });
   }
 
   ngOnInit() {
     this.carePlanService.currentCarePlanModel.subscribe((model) => {
       this.carePlanModel = model;
+  
+      if (this.carePlanModel) {
+        this.caseForm.patchValue({
+          caseName: this.carePlanModel.caseName,
+          caseEquity: this.carePlanModel.caseAcuity,
+          source: this.carePlanModel.caseSource,
+          description: this.carePlanModel.description,
+          note: this.carePlanModel.note,
+          primaryContact: this.carePlanModel.primaryContact,
+          mainDiagnosis: this.carePlanModel.mainDiagnosis,
+          additionalDiagnosis: this.carePlanModel.additionalDiagnosis,
+          additionalOtherDiagnosis: this.carePlanModel.AdditionalOtherDiagnosis,
+        });
+      }
     });
     this.loadCases();
   }
+  
 
   loadCases() {
     this.apiResponse = this.carePlanService.apiResponse;
@@ -60,20 +90,24 @@ export class CasePopupComponent {
   }
   
   onSave() {
-    this.carePlanModel!.caseName = this.selectedCase;
-    this.carePlanModel!.caseAcuity = this.selectedEquity;
-    this.carePlanModel!.caseSource = this.selectedSource;
-    this.carePlanModel!.description = this.description;
-    this.carePlanModel!.note = this.note;
-    this.carePlanModel!.primaryContact = this.primaryContact;
-    this.carePlanModel!.mainDiagnosis = this.mainDiagnosis;
-    this.carePlanModel!.additionalDiagnosis = this.additionalDiagnosis;
-    this.carePlanModel!.AdditionalOtherDiagnosis = this.additionalOtherDiagnosis;
-
-    this.carePlanService.updateCarePlanModel(this.carePlanModel!);
-    
-    
+    if (this.caseForm.valid && this.carePlanModel) {
+      const formData = this.caseForm.value;
+  
+      this.carePlanModel.caseName = formData.caseName;
+      this.carePlanModel.caseAcuity = formData.caseEquity;
+      this.carePlanModel.caseSource = formData.source;
+      this.carePlanModel.description = formData.description;
+      this.carePlanModel.note = formData.note;
+      this.carePlanModel.primaryContact = formData.primaryContact;
+      this.carePlanModel.mainDiagnosis = formData.mainDiagnosis;
+      this.carePlanModel.additionalDiagnosis = formData.additionalDiagnosis;
+      this.carePlanModel.AdditionalOtherDiagnosis = formData.additionalOtherDiagnosis;
+  
+      this.carePlanService.updateCarePlanModel(this.carePlanModel);
+      console.log('Updated CarePlanModel:', this.carePlanModel);
+    }
   }
+  
 
   onCaseInput(event: Event): void {
     const input = (event.target as HTMLInputElement).value;

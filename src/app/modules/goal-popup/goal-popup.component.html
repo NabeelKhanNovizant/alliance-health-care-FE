@@ -28,8 +28,9 @@
         (input)="onInputGoal($event)"
       />
       <mat-autocomplete #auto2="matAutocomplete">
-        <mat-option *ngFor="let val1 of filteredgoals" [value]="val1">
+        <mat-option *ngFor="let val1 of filteredgoals; let isLast = last" [value]="val1">
           {{ val1 }}
+          <div *ngIf="!isLast" class="border-b border-gray-300"></div>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
