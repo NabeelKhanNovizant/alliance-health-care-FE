@@ -3,7 +3,7 @@ export interface ApiResponse {
 }
 export interface Goal {
     name: string;   
-    items: string[];
+    milestones: string[];
 }
 export interface Problem {
     name: string;

@@ -38,22 +38,30 @@ export class MilestonePopupComponent {
   apiResponse: ApiResponse | null = null;
 
   constructor(private carePlanService: CarePlanService) {    
-    this.filteredStatus = this.status; // Initially show all countries
-    this.filteredActionType = this.ActionType; // Initially show all countries
+    this.filteredStatus = this.status; 
+    this.filteredActionType = this.ActionType; 
   }
 
   ngOnInit() {
     this.apiResponse = this.carePlanService.apiResponse;
-    this.carePlanService.currentCarePlanModel.subscribe((model) => {
-      this.carePlanModel = model;
-      this.problems = this.carePlanModel?.problems.map(p => {
-        return p.name;
-      })!;
-      this.filteredProblem = this.problems; // Initially show all countries    
+    this.apiResponse?.cases?.forEach(singleCase => {
+        singleCase.problems?.forEach(problem => {
+            problem.goals?.forEach(goal => {
+              goal.milestones ?? [];
+            });
+        });
     });
-  }
 
-  // Method to filter countries based on user input
+    this.carePlanService.currentCarePlanModel.subscribe((model) => {
+        this.carePlanModel = model;
+        this.problems = this.carePlanModel?.problems.map(p => p.name) || [];
+        this.filteredProblem = this.problems;
+    });
+}
+
+
+
+
   onInput(value: any): void {
     this.filteredProblem = this.problems.filter((val) =>
       val.toLowerCase().includes(value.toLowerCase())
@@ -75,17 +83,26 @@ export class MilestonePopupComponent {
     );
   }
   onGoalSelected($event: MatAutocompleteSelectedEvent) {
-    let problemModel = this.apiResponse?.cases[0].problems.find(p => p.name == this.selectedProblem);
-    let goalModel = problemModel?.goals.find(g => g.name == $event.option.value);
-    this.milestones = goalModel?.items!;    
-    this.filteredmilestones = this.milestones; // Initially show all countries     
-  }
+    if (this.apiResponse?.cases && this.apiResponse.cases.length > 0) {
+        const problemModel = this.apiResponse.cases[0].problems.find(p => p.name === this.selectedProblem);
+        if (problemModel) {
+            const goalModel = problemModel.goals.find(g => g.name === $event.option.value);
+            if (goalModel) {
+                this.milestones = goalModel.milestones || [];
+                this.filteredmilestones = this.milestones;
+                console.log('Milestones = ', this.milestones);
+            }
+        }
+    }
+}
+
+
   onProblemSelected($event: MatAutocompleteSelectedEvent) {
     var problemModel = this.apiResponse?.cases[0].problems.find(p => p.name == $event.option.value);
     this.goals = problemModel?.goals.map(g => {
       return g.name;
     })!;    
-    this.filteredgoals = this.goals; // Initially show all countries 
+    this.filteredgoals = this.goals; 
   }
   OnSaveMilestone() {
     let milestone = new CarePlanMilestone();
