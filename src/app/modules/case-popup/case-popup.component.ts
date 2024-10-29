@@ -83,7 +83,6 @@ export class CasePopupComponent {
     if (this.apiResponse && this.apiResponse.cases.length > 0) {
       this.caseName = this.apiResponse?.cases.map(item => item.name);
       this.filteredCase = this.caseName;
-      console.log("getting cases", this.caseName);
     } else {
       console.log("No cases found");
     }
@@ -104,7 +103,6 @@ export class CasePopupComponent {
       this.carePlanModel.AdditionalOtherDiagnosis = formData.additionalOtherDiagnosis;
   
       this.carePlanService.updateCarePlanModel(this.carePlanModel);
-      console.log('Updated CarePlanModel:', this.carePlanModel);
     }
   }
   

@@ -14,7 +14,6 @@ export class CareManagementComponent implements OnInit, AfterViewInit {
   constructor(private carePlanService: CarePlanService) {}
   ngAfterViewInit(): void {
     this.carePlanModel$.subscribe((model) => {
-      console.log("Care_managementPlan (async data):", model);
     });
   }
   ngOnInit(): void {}

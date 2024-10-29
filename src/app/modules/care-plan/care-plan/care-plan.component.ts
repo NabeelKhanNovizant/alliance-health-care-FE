@@ -61,7 +61,7 @@ export class CarePlanComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog closed, selected country:', result);
+     // console.log('Dialog closed, selected country:', result);
     });
   }
 
@@ -72,7 +72,7 @@ export class CarePlanComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog closed, selected country:', result);
+    //  console.log('Dialog closed, selected country:', result);
     });
   }
 
@@ -83,7 +83,7 @@ export class CarePlanComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog closed, selected country:', result);
+    //  console.log('Dialog closed, selected country:', result);
     });
   }
 
@@ -94,7 +94,7 @@ export class CarePlanComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog closed, selected country:', result);
+   //   console.log('Dialog closed, selected country:', result);
     });
   }
 

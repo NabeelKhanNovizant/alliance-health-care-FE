@@ -89,7 +89,6 @@ export class PatientComponent implements OnInit {
     }
   
     this.clearAssessmentSelection(); 
-    console.log('Selected Patient:', this.selectedPatient); 
   }
   
   onAssessmentSelected(assessment: Assessment) {
@@ -102,7 +101,6 @@ export class PatientComponent implements OnInit {
       this.canNavigate.emit(this.carePlanModel);
     }
   
-    console.log('Selected Assessment:', this.selectedAssessment);  
   }
   
 

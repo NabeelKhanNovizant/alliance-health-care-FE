@@ -17,7 +17,6 @@ export class CaseProblemsComponent implements AfterViewInit {
     this.carePlanModel$.subscribe((model) => {
       if (model) {
         this.problems = model.problems;
-        console.log("Problems In problemComponent:", this.problems);
       }
     });
   }

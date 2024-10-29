@@ -59,22 +59,7 @@
         </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Start Date</mat-label>
-        <input matInput [matDatepicker]="picker"  [(ngModel)]="startDate" required>
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>Close Date</mat-label>
-        <input matInput [matDatepicker]="picker2"  [(ngModel)]="endDate" required>
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
-
+    
     <mat-form-field appearance="fill">
         <input
         type="text"
@@ -109,6 +94,22 @@
           </mat-option>
         </mat-autocomplete>
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="picker"  [(ngModel)]="startDate" required>
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Close Date</mat-label>
+      <input matInput [matDatepicker]="picker2"  [(ngModel)]="endDate" required>
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end" class="mt-4 mb-4">
