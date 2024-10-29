@@ -1,64 +1,60 @@
 <h2 mat-dialog-title>Add Problem</h2>
 
 <mat-dialog-content class="mat-typography">
-
-    <div class="d-flex flex-column">
-       
-
+  <form [formGroup]="problemForm" class="d-flex flex-column">
     <mat-form-field appearance="fill">
-        <input
+      <input
         type="text"
         placeholder="Problem"
         matInput
         [matAutocomplete]="auto1"
-        [(ngModel)]="selectedProblem"
-        name="problem"
+        formControlName="problem"
+        required
         (input)="onInput($event)"
-        />
-        <mat-autocomplete #auto1="matAutocomplete">
-          <mat-option *ngFor="let val1 of filteredProblem" [value]="val1">
-            {{ val1 }}
-          </mat-option>
-        </mat-autocomplete>
+      />
+      <mat-autocomplete #auto1="matAutocomplete">
+        <mat-option *ngFor="let val1 of filteredProblem" [value]="val1">
+          {{ val1 }}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-        <input
+      <input
         type="text"
         placeholder="Status"
         matInput
         [matAutocomplete]="auto2"
-        [(ngModel)]="selectedStatu"
-        name="status"
+        formControlName="status"
+        required
         (input)="onInputStatus($event)"
-        />
-        <mat-autocomplete #auto2="matAutocomplete">
-          <mat-option *ngFor="let val1 of filteredStatus" [value]="val1">
-            {{ val1 }}
-          </mat-option>
-        </mat-autocomplete>
+      />
+      <mat-autocomplete #auto2="matAutocomplete">
+        <mat-option *ngFor="let val1 of filteredStatus" [value]="val1">
+          {{ val1 }}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
+    <mat-form-field>
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="startDate" required />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
     <mat-form-field>
-        <mat-label>Start Date</mat-label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="startDate">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>Close Date</mat-label>
-        <input matInput [matDatepicker]="picker2"  [(ngModel)]="endDate">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
-    </div>      
- 
+      <mat-label>Close Date</mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="endDate" required />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
+
 <mat-dialog-actions align="end" class="mt-4 mb-4">
   <button mat-stroked-button mat-dialog-close>Close</button>
-  <button color="primary" mat-flat-button [mat-dialog-close]="true" (click)="SaveProblem()"  cdkFocusInitial>Save</button>
+  <button color="primary" mat-flat-button [disabled]="!problemForm.valid" (click)="SaveProblem()" [mat-dialog-close]="true" cdkFocusInitial>Save</button>
 </mat-dialog-actions>
