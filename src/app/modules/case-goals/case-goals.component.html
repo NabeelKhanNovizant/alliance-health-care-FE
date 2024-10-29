@@ -5,6 +5,12 @@
   
   <div class="row" *ngFor="let goal of goals">
     <!-- First Column: Contains details up to Date of Birth -->
+     <div class="row">
+      <div class="detail">
+        <span>Problem: </span>
+        <p>{{goal.problemName}}</p>
+      </div>
+     </div>
     <div class="row">
       <div class="detail" style="gap: 56px;">
         <span style="margin-left: 13px;">Goal:</span>
