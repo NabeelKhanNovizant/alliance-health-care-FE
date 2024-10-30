@@ -36,7 +36,6 @@ export class ProblemPopupComponent implements OnInit {
     if (this.apiResponse && this.apiResponse.cases.length > 0) {
       this.problems = this.apiResponse.cases[0].problems.map((item) => item.name);
       this.filteredProblem = this.problems;
-      console.log('Problems Filtered', this.filteredProblem);
     } else {
       console.log('API Response is null');
     }
@@ -69,7 +68,6 @@ export class ProblemPopupComponent implements OnInit {
       // Update carePlanModel and notify service
       this.carePlanModel.problems.push(problem);
       this.carePlanService.updateCarePlanModel(this.carePlanModel);
-      console.log('Problems Updated', this.carePlanModel);
     }
   }
 }

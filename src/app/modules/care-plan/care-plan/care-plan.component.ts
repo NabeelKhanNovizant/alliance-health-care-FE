@@ -63,7 +63,7 @@ export class CarePlanComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog closed, selected country:', result);
+     // console.log('Dialog closed, selected country:', result);
     });
   }
 
@@ -81,7 +81,7 @@ opeProblemDialog(): void {
     });
   
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog closed, selected country:', result);
+    //  console.log('Dialog closed, selected country:', result);
     });
   });
   
@@ -102,7 +102,7 @@ opeGoalDialog(): void {
     });
   
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog closed, selected country:', result);
+    //  console.log('Dialog closed, selected country:', result);
     });
   });
 }
@@ -123,7 +123,7 @@ opeMilestoneDialog(): void {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog closed, selected country:', result);
+   //   console.log('Dialog closed, selected country:', result);
     });
   });
 }

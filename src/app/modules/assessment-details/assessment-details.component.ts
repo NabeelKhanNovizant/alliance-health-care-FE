@@ -19,7 +19,6 @@ export class AssessmentDetailsComponent {
   ngOnInit() {
     this.carePlanService.currentCarePlanModel.subscribe((model) => {
       this.assessment = model?.assessment || null;  
-      console.log('Assessment in Care Plan Model:', this.assessment);
     });
   }
 }

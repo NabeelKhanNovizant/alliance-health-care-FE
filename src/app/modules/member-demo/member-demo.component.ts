@@ -24,7 +24,6 @@ export class MemberDemoComponent implements OnInit {
   ngOnInit() {
     this.carePlanService.currentCarePlanModel.subscribe((model) => {
       this.patient = model?.patient || null; 
-      console.log('Patient in Care Plan Model:', this.patient);
     });
   }
 }

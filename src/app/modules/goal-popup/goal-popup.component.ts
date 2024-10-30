@@ -85,7 +85,6 @@ export class GoalPopupComponent implements OnInit {
       problemModel?.goals.push(goal);
 
       this.carePlanService.updateCarePlanModel(this.carePlanModel);
-      console.log('Goal saved!', this.carePlanModel);
     }
   }
 }
