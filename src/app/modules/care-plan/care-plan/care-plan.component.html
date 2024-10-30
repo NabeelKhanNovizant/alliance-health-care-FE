@@ -26,10 +26,7 @@
           <mat-icon class="icon-add-btn" (click)="opeCaseDialog()">add
           </mat-icon>
         </button>
-        <button type="button" class="btn-add">
-          <mat-icon class="icon-add-btn">visibility
-          </mat-icon>
-        </button>
+        
       </div>
     </div>
     <hr>
@@ -41,9 +38,8 @@
     <div class="bg-header d-flex justify-content-between">
       <mat-card-title>Problems</mat-card-title>
       <div class="d-flex gap-1">
-        <button type="button" class="btn-add" (click)="opeProblemDialog()">
-          <mat-icon class="icon-add-btn" >edit
-          </mat-icon>
+        <button type="button" class="btn-add" (click)="opeProblemDialog()" [disabled]="!(hasCaseName$ | async)">
+          <mat-icon class="icon-add-btn">edit</mat-icon>
         </button>
         
       </div>
@@ -55,11 +51,9 @@
     <div class="bg-header d-flex justify-content-between">
       <mat-card-title>Goals</mat-card-title>
       <div class="d-flex gap-1">
-        <button type="button" class="btn-add" (click)="opeGoalDialog()">
-          <mat-icon class="icon-add-btn">edit
-          </mat-icon>
-        </button>
-        
+        <button type="button" class="btn-add" (click)="opeGoalDialog()" [disabled]="!(hasProblems$ | async)">
+          <mat-icon class="icon-add-btn">edit</mat-icon>
+        </button>       
       </div>
     </div>
     <hr>
@@ -69,7 +63,7 @@
     <div class="bg-header d-flex justify-content-between">
       <mat-card-title>Milestones</mat-card-title>
       <div class="d-flex gap-1">
-        <button type="button" class="btn-add" (click)="opeMilestoneDialog()">
+        <button type="button" class="btn-add" (click)="opeMilestoneDialog()" [disabled]="!(hasGoal$ | async)">
           <mat-icon class="icon-add-btn">edit
           </mat-icon>
         </button>
@@ -80,94 +74,3 @@
         <app-case-milestones></app-case-milestones>
   </mat-card>
 </div>
-
-
-
-<!-- <mat-accordion class="center">
-    <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" class="panel">
-      <mat-expansion-panel-header>
-        <mat-panel-title> Problem: Diabetes </mat-panel-title>
-        <mat-panel-description>
-          Sub-Problem: Type 1 Diabetes
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-          <mat-checkbox
-            [checked]="node.checked"
-            (change)="onCheckboxChange(node)"
-          >
-            {{ node.name }}
-          </mat-checkbox>
-        </mat-tree-node>
-      
-        <mat-tree-node
-          *matTreeNodeDef="let node; when: hasChild"
-          matTreeNodePadding
-        >
-          <div class="tree-node">
-            <mat-icon matTreeNodeToggle>
-              {{
-                treeControl.isExpanded(node)
-                  ? 'expand_more'
-                  : 'chevron_right'
-              }}
-            </mat-icon>
-            <mat-checkbox
-              [checked]="node.checked"
-              (change)="onCheckboxChange(node)"
-            >
-              {{ node.name }}
-            </mat-checkbox>
-          </div>
-        </mat-tree-node>
-      </mat-tree>
-      
-          </mat-expansion-panel>
-
-  </mat-accordion>
-
-  <mat-accordion class="center">
-    <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" class="panel">
-      <mat-expansion-panel-header>
-        <mat-panel-title> Problem: Diabetes </mat-panel-title>
-        <mat-panel-description>
-          Sub-Problem: Type 2 Diabetes
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-          <mat-checkbox
-            [checked]="node.checked"
-            (change)="onCheckboxChange(node)"
-          >
-            {{ node.name }}
-          </mat-checkbox>
-        </mat-tree-node>
-      
-        <mat-tree-node
-          *matTreeNodeDef="let node; when: hasChild"
-          matTreeNodePadding
-        >
-          <div class="tree-node">
-            <mat-icon matTreeNodeToggle>
-              {{
-                treeControl.isExpanded(node)
-                  ? 'expand_more'
-                  : 'chevron_right'
-              }}
-            </mat-icon>
-            <mat-checkbox
-              [checked]="node.checked"
-              (change)="onCheckboxChange(node)"
-            >
-              {{ node.name }}
-            </mat-checkbox>
-          </div>
-        </mat-tree-node>
-      </mat-tree>
-      
-          </mat-expansion-panel>
-
-  </mat-accordion> -->
-  
