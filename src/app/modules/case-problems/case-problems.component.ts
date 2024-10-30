@@ -10,7 +10,7 @@ import { CarePlanProblem } from '../../models/care-plan-model';
 export class CaseProblemsComponent implements AfterViewInit {
   carePlanModel$ = this.carePlanService.currentCarePlanModel;
   problems: CarePlanProblem[] = [];
-
+  
   constructor(private carePlanService: CarePlanService) {}
 
   ngAfterViewInit(): void {

@@ -58,8 +58,7 @@ export class CasePopupComponent {
 
   ngOnInit() {
     this.carePlanService.currentCarePlanModel.subscribe((model) => {
-      this.carePlanModel = model;
-  
+      this.carePlanModel = model;  
       if (this.carePlanModel) {
         this.caseForm.patchValue({
           caseName: this.carePlanModel.caseName,

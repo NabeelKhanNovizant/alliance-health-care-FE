@@ -7,6 +7,8 @@ import { ProblemPopupComponent } from '../../problem-popup/problem-popup.compone
 import { MilestonePopupComponent } from '../../milestone-popup/milestone-popup.component';
 import { GoalPopupComponent } from '../../goal-popup/goal-popup.component';
 import { ActivatedRoute } from '@angular/router';
+import { CarePlanService } from '../../services/care-plan-service.service';
+import { take } from 'rxjs/operators';
 
 
 interface TreeNode {
@@ -38,9 +40,9 @@ export class CarePlanComponent {
   assessmentId!: number;
 
   readonly panelOpenState = signal(false);
-
+  carePlanModel$ = this.carePlanService.currentCarePlanModel;
  
-  constructor(private dialog: MatDialog,private route: ActivatedRoute) {
+  constructor(private dialog: MatDialog,private route: ActivatedRoute,private carePlanService: CarePlanService) {
   }
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -65,38 +67,66 @@ export class CarePlanComponent {
     });
   }
 
-  opeProblemDialog(): void {
+
+opeProblemDialog(): void {
+  this.carePlanModel$.pipe(take(1)).subscribe((carePlanModel) => {
+    if (!carePlanModel || !carePlanModel.caseName) {
+      alert("Please select a case");
+      this.opeCaseDialog(); 
+      return;
+    }
     const dialogRef = this.dialog.open(ProblemPopupComponent, {
       width: '600px',
-      data: {}, // Optional: Pass data if needed
+      data: {}, 
     });
-
+  
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog closed, selected country:', result);
     });
-  }
+  });
+  
+}
 
-  opeGoalDialog(): void {
+  
+opeGoalDialog(): void {
+  this.carePlanModel$.pipe(take(1)).subscribe((carePlanModel) => {
+    if (!carePlanModel || carePlanModel.problems.length === 0) {
+      alert("Please select a case with problems");
+      this.opeProblemDialog();
+      return; 
+    }
+
     const dialogRef = this.dialog.open(GoalPopupComponent, {
       width: '600px',
-      data: {}, // Optional: Pass data if needed
+      data: {}, 
     });
-
+  
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog closed, selected country:', result);
     });
-  }
+  });
+}
 
-  opeMilestoneDialog(): void {
+opeMilestoneDialog(): void {
+  this.carePlanModel$.pipe(take(1)).subscribe((carePlanModel) => {
+    const hasGoals = carePlanModel?.problems.some(problem => problem.goals.length > 0);
+    
+    if (!hasGoals) {
+      alert("Please select a case with goals");
+      this.opeGoalDialog();
+      return; 
+    }
+
     const dialogRef = this.dialog.open(MilestonePopupComponent, {
       width: '600px',
-      data: {}, // Optional: Pass data if needed
+      data: {}, 
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog closed, selected country:', result);
     });
-  }
+  });
+}
 
   hasChild = (_: number, node: FlatNode) => node.expandable;
 
