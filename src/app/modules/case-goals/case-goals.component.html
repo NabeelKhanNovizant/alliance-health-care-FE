@@ -4,46 +4,49 @@
   </div>
   
   <div class="row" *ngFor="let goal of goals">
-    <!-- First Column: Contains details up to Date of Birth -->
-     <div class="row">
+    <!-- Problem Name -->
+    <div class="col-12">
       <div class="detail">
-        <span style="margin-left: 13px;">Problem: </span>
-        <p>{{goal.problemName}}</p>
-      </div>
-     </div>
-    <div class="row">
-      <div class="detail" style="gap: 56px;">
-        <span style="margin-left: 13px;">Goal:</span>
-        <p>{{ goal.name }}</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="detail">
-          <span>Status:</span>
-          <p>{{ goal.status }}</p>
-        </div>
-        <div class="detail">
-          <span>Start Date:</span>
-          <p>{{ goal.startDate | date: 'MM/dd/yyyy' }}</p>
-        </div>
-      </div>
-      
-      <!-- Second Column: Contains Close Date and Status -->
-      <div class="col-md-6">
-        <div class="detail">
-          <span>Priority:</span>
-          <p>{{ goal.priority }}</p>
-        </div>
-        <div class="detail">
-          <span>Close Date:</span>
-          <p>{{ goal.endDate | date: 'MM/dd/yyyy' }}</p>
-        </div>  
-      </div>
-      <div class="col-12">
-        <hr>
+        <span>Problem: </span>
+        <p>{{ goal.problemName }}</p>
       </div>
     </div>
     
+    <!-- Goal Name -->
+    <div class="col-12">
+      <div class="detail">
+        <span>Goal:</span>
+        <p>{{ goal.name }}</p>
+      </div>
+    </div>
+
+    <!-- Status and Start Date in the left column -->
+    <div class="col-md-6">
+      <div class="detail">
+        <span>Status:</span>
+        <p>{{ goal.status }}</p>
+      </div>
+      <div class="detail">
+        <span>Start Date:</span>
+        <p>{{ goal.startDate | date: 'MM/dd/yyyy' }}</p>
+      </div>
+    </div>
+    
+    <!-- Priority and Close Date in the right column -->
+    <div class="col-md-6">
+      <div class="detail">
+        <span>Priority:</span>
+        <p>{{ goal.priority }}</p>
+      </div>
+      <div class="detail">
+        <span>Close Date:</span>
+        <p>{{ goal.endDate | date: 'MM/dd/yyyy' }}</p>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="col-12">
+      <hr>
+    </div>
   </div>
 </div>

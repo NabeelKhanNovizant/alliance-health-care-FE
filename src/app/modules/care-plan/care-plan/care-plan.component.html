@@ -74,3 +74,8 @@
         <app-case-milestones></app-case-milestones>
   </mat-card>
 </div>
+<div class="btn-submit">
+  <button type="button" class="btn-submitPlan" [disabled]="!(hasMilestone$ | async)" (click)="OnSubmit()">
+    Submit Plan
+  </button>
+</div>

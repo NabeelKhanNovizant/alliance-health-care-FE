@@ -64,3 +64,24 @@
 .icon-add-btn{
   font-size: 20px;
 }
+.btn-submit{
+  display: flex;
+  justify-content: end;
+  padding: 10px;
+}
+.btn-submitPlan{
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px 10px 20px;
+  margin-right: 21px;
+  background-color: lavender;
+}
+
+.btn-submitPlan:not(:disabled):hover{
+  background-color: #3f51b5;
+  color: white;
+}
+.btn-submitPlan:disabled{
+  cursor: not-allowed;
+  opacity: 0.6;
+}

@@ -1,26 +1,21 @@
 .detail {
     display: flex;
-    align-items: center; /* Changed from 'end' to 'center' */
-    margin: 8px 0px;
-    padding: 0px 0;
+    align-items: center;
+    margin: 4px 0;
+    padding: 0;
     font-size: 13px;
 }
 
-mat-icon {
-    margin-right: 10px;
-    color: #757575;
-}
-
-span {
+.detail span {
     font-weight: 500;
-    width: 120px;
     color: #333;
+    margin-right: 10px; /* Adds space between span and p */
+    min-width: 100px; /* Ensures equal space between span and p */
 }
 
-p {
+.detail p {
     margin: 0;
     color: #555;
     font-size: 12px;
+    flex: 1; /* Ensures p takes remaining space */
 }
-
-  

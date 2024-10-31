@@ -1,47 +1,59 @@
 <div class="container" *ngIf="milestones$ | async as milestones">
     <div *ngIf="milestones.length === 0">
-        <p>Milestones are not available. Please add Milestone.</p>
-      </div>
-    <div *ngFor="let milestone of milestones">
-        <div class="row">
-            <div class="detail">
-                <span>Problem:</span>
-                <p>{{milestone.problemName}}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="detail">
-                <span>Goal:</span>
-                <p>{{milestone.goalName}}</p>
-            </div>   
-        </div>
-        <div class="row">
-            <div class="detail">
-                <span>Milestone:</span>
-                <p>{{milestone.name}}</p>
-            </div>        
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="detail">
-                    <span>Status:</span>
-                    <p>{{milestone.status}}</p>
-                </div>
-                <div class="detail">
-                    <span>Action Type:</span>
-                    <p>{{milestone.actionType}}</p>
-                </div>        
-            </div>
-            <div class="col-md-6">
-                <div class="detail">
-                    <span>Start Date:</span>
-                    <p>{{milestone.startDate | date: "MM/dd/yyyy"}}</p>
-                </div>
-                <div class="detail">
-                    <span>Close Dated:</span>
-                    <p>{{milestone.endDate | date: "MM/dd/yyyy"}}</p>
-                </div>
-            </div>
-        </div>
+      <p>Milestones are not available. Please add a Milestone.</p>
     </div>
-</div>
+    
+    <div class="row" *ngFor="let milestone of milestones">
+      <!-- Problem Name -->
+      <div class="col-12">
+        <div class="detail">
+          <span>Problem:</span>
+          <p>{{ milestone.problemName }}</p>
+        </div>
+      </div>
+  
+      <!-- Goal Name -->
+      <div class="col-12">
+        <div class="detail">
+          <span>Goal:</span>
+          <p>{{ milestone.goalName }}</p>
+        </div>
+      </div>
+  
+      <!-- Milestone Name -->
+      <div class="col-12">
+        <div class="detail">
+          <span>Milestone:</span>
+          <p>{{ milestone.name }}</p>
+        </div>
+      </div>
+  
+      <div class="col-md-6">
+        <div class="detail">
+          <span>Status:</span>
+          <p>{{ milestone.status }}</p>
+        </div>
+        <div class="detail">
+          <span>Action Type:</span>
+          <p>{{ milestone.actionType }}</p>
+        </div>
+      </div>
+  
+      <div class="col-md-6">
+        <div class="detail">
+          <span>Start Date:</span>
+          <p>{{ milestone.startDate | date: 'MM/dd/yyyy' }}</p>
+        </div>
+        <div class="detail">
+          <span>Close Date:</span>
+          <p>{{ milestone.endDate | date: 'MM/dd/yyyy' }}</p>
+        </div>
+      </div>
+  
+      <!-- Divider -->
+      <div class="col-12">
+        <hr>
+      </div>
+    </div>
+  </div>
+  

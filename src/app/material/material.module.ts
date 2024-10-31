@@ -33,6 +33,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBar, MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatChipsModule} from '@angular/material/chips';
 import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 const mat_comps:any[] = [
@@ -70,6 +71,8 @@ const mat_comps:any[] = [
     MatProgressBarModule,
     MatChipsModule,
     MatSlideToggleModule,
+    MatListModule,
+    MatGridListModule
 ]
 
 @NgModule({

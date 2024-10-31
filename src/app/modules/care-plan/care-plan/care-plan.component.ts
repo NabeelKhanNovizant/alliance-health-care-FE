@@ -49,6 +49,14 @@ export class CarePlanComponent {
   hasGoal$ = this.carePlanService.currentCarePlanModel.pipe(
     map((carePlanModel) =>!!carePlanModel?.problems?.flatMap((problem) => problem.goals)?.length)
   )
+  hasMilestone$ = this.carePlanService.currentCarePlanModel.pipe(
+    map((carePlanModel) =>
+      carePlanModel?.problems?.some(problem =>
+        problem.goals?.some(goal => goal.milestones?.length > 0)
+      ) || false
+    )
+  );
+  
 
   constructor(private dialog: MatDialog,private route: ActivatedRoute,private carePlanService: CarePlanService) {
   }
@@ -112,10 +120,10 @@ opeMilestoneDialog(): void {
   });
 }
 
-  hasChild = (_: number, node: FlatNode) => node.expandable;
+OnSubmit() {
+  this.carePlanService.currentCarePlanModel.pipe(take(1)).subscribe((carePlanModel) => {
+    console.log('Care Plan on Submitting', carePlanModel);
+  });
+}
 
-  onCheckboxChange(node: FlatNode) {
-    node.checked = !node.checked;
-    console.log(`${node.name} is checked: ${node.checked}`);
-  }
 }
