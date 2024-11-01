@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { CarePlanService } from '../services/care-plan-service.service';
 import { CarePlanMilestone, CarePlanModel } from '../../models/care-plan-model';
 import { ApiResponse } from '../../models/api-response';
@@ -36,10 +36,13 @@ export class MilestonePopupComponent {
   carePlanModel: CarePlanModel | null = null;
   apiResponse: ApiResponse | null = null;
 
-  constructor(private carePlanService: CarePlanService) {    
+  constructor(private carePlanService: CarePlanService,
+    private el: ElementRef
+  ) {    
     this.filteredStatus = this.status; 
     this.filteredActionType = this.ActionType; 
   }
+
 
   ngOnInit() {
     this.apiResponse = this.carePlanService.apiResponse;

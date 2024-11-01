@@ -2,3 +2,12 @@
     border-bottom: 1px solid #d3d3d3;
     margin-bottom: 4px;
   }
+
+  .expandable-field textarea {
+    min-height: 3em; /* Adjust as needed */
+    max-height: 8em; /* Adjust as needed */
+    overflow-y: auto;
+    white-space: pre-wrap;
+  }
+  
+  

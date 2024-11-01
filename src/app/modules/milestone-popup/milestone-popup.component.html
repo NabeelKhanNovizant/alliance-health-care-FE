@@ -24,11 +24,9 @@
         </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" class="expandable-field">
       <mat-label>Goal</mat-label>
-
-        <input
-        type="text"
+      <textarea
         placeholder="Goal"
         matInput
         [matAutocomplete]="auto2"
@@ -36,18 +34,20 @@
         name="goal"
         required
         (input)="onInputGoal($event)"
-        />
-        <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="onGoalSelected($event)">
-          <mat-option *ngFor="let val1 of filteredgoals" [value]="val1">
-            {{ val1 }}
-          </mat-option>
-        </mat-autocomplete>
+        rows="3"
+      ></textarea>
+      <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="onGoalSelected($event)">
+        <mat-option *ngFor="let val1 of filteredgoals; let isLast = last  " [value]="val1">
+          {{ val1 }}
+          <div *ngIf="!isLast" class="border-b border-gray-300"></div>
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
+    
 
     <mat-form-field appearance="fill">
       <mat-label>Milestone</mat-label>
-        <input
-        type="text"
+      <textarea
         placeholder="Milestone"
         matInput
         [matAutocomplete]="auto8"
@@ -55,13 +55,14 @@
         name="milestone"
         required
         (input)="onInput($event)"
-        />
-        <mat-autocomplete #auto8="matAutocomplete">
-            <mat-option *ngFor="let val1 of filteredmilestones; let isLast = last" [value]="val1">
-            {{ val1 }}
-            <div *ngIf="!isLast" class="border-b border-gray-300"></div>
-            </mat-option>
-        </mat-autocomplete>
+        rows="3"
+      ></textarea>
+      <mat-autocomplete #auto8="matAutocomplete">
+        <mat-option *ngFor="let val1 of filteredmilestones; let isLast = last " [value]="val1">
+          {{ val1 }}
+          <div *ngIf="!isLast" class="border-b border-gray-300"></div>
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     
@@ -102,7 +103,7 @@
           </mat-option>
         </mat-autocomplete>
     </mat-form-field>
-    
+
     <mat-form-field>
       <mat-label>Start Date</mat-label>
       <input matInput [matDatepicker]="picker"  [(ngModel)]="startDate" required>

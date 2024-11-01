@@ -23,14 +23,14 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Goal</mat-label>
-      <input
-        type="text"
+      <textarea
         placeholder="Goal"
         matInput
         [matAutocomplete]="auto2"
         formControlName="goal"
         (input)="onInputGoal($event)"
-      />
+        rows="3"
+      ></textarea>
       <mat-autocomplete #auto2="matAutocomplete">
         <mat-option *ngFor="let val1 of filteredgoals; let isLast = last" [value]="val1">
           {{ val1 }}
@@ -38,6 +38,9 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
+    
+
+    
 
     <mat-form-field appearance="fill">
       <mat-label>Status</mat-label>
