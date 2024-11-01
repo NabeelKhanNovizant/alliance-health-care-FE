@@ -5,6 +5,8 @@
     <div class="d-flex flex-column">
       <!-- Case Name -->
       <mat-form-field appearance="fill">
+        <mat-label>Case Name</mat-label>
+
         <input
           type="text"
           placeholder="Case"
@@ -12,6 +14,7 @@
           [matAutocomplete]="auto1"
           formControlName="caseName"
           (input)="onCaseInput($event)"
+          required
         />
         <mat-autocomplete #auto1="matAutocomplete">
           <mat-option *ngFor="let val1 of filteredCase" [value]="val1">
@@ -25,6 +28,8 @@
 
       <!-- Case Equity -->
       <mat-form-field appearance="fill">
+        <mat-label>Case Acuity</mat-label>
+
         <input
           type="text"
           placeholder="Case Equity"
@@ -45,6 +50,8 @@
 
       <!-- Source -->
       <mat-form-field appearance="fill">
+        <mat-label>Source</mat-label>
+
         <input
           type="text"
           placeholder="Source"
@@ -81,18 +88,12 @@
       <mat-form-field appearance="fill">
         <mat-label>Primary Contact</mat-label>
         <input matInput formControlName="primaryContact" />
-        <mat-error *ngIf="caseForm.get('primaryContact')?.hasError('required')">
-          Primary contact is required
-        </mat-error>
       </mat-form-field>
 
       <!-- Main Diagnosis -->
       <mat-form-field appearance="fill">
         <mat-label>Main Diagnosis</mat-label>
         <input matInput formControlName="mainDiagnosis" />
-        <mat-error *ngIf="caseForm.get('mainDiagnosis')?.hasError('required')">
-          Main diagnosis is required
-        </mat-error>
       </mat-form-field>
 
       <!-- Additional Diagnosis -->

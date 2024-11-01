@@ -49,8 +49,8 @@ export class CasePopupComponent {
       source: ['', Validators.required],
       description: [''],
       note: [''],
-      primaryContact: ['', Validators.required],
-      mainDiagnosis: ['', Validators.required],
+      primaryContact: [''],
+      mainDiagnosis: [''],
       additionalDiagnosis: [''],
       additionalOtherDiagnosis: ['']
     });

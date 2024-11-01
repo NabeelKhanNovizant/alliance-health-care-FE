@@ -3,6 +3,8 @@
 <mat-dialog-content class="mat-typography">
   <form [formGroup]="goalForm" class="d-flex flex-column">
     <mat-form-field appearance="fill">
+      <mat-label>Problem</mat-label>
+
       <input
         type="text"
         placeholder="Problem"
@@ -10,6 +12,7 @@
         [matAutocomplete]="auto1"
         formControlName="problem"
         (input)="onInput($event)"
+        required=""
       />
       <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="onProblemSelected($event)">
         <mat-option *ngFor="let val1 of filteredProblem" [value]="val1">
@@ -19,6 +22,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
+      <mat-label>Goal</mat-label>
       <input
         type="text"
         placeholder="Goal"
@@ -36,6 +40,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
       <input
         type="text"
         placeholder="Status"
@@ -52,6 +57,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
+      <mat-label>Priority</mat-label>
       <input
         type="text"
         placeholder="Priority"

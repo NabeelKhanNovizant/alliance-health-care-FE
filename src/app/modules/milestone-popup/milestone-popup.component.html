@@ -5,6 +5,8 @@
     <div class="d-flex flex-column">
 
     <mat-form-field appearance="fill">
+      <mat-label>Problem</mat-label>
+
         <input
         type="text"
         placeholder="Problem"
@@ -23,6 +25,8 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
+      <mat-label>Goal</mat-label>
+
         <input
         type="text"
         placeholder="Goal"
@@ -41,6 +45,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
+      <mat-label>Milestone</mat-label>
         <input
         type="text"
         placeholder="Milestone"
@@ -61,6 +66,7 @@
 
     
     <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
         <input
         type="text"
         placeholder="Status"
@@ -77,7 +83,9 @@
           </mat-option>
         </mat-autocomplete>
     </mat-form-field>
+
     <mat-form-field appearance="fill">
+      <mat-label>Action Type</mat-label>
         <input
         type="text"
         placeholder="Action Type"
@@ -94,6 +102,7 @@
           </mat-option>
         </mat-autocomplete>
     </mat-form-field>
+    
     <mat-form-field>
       <mat-label>Start Date</mat-label>
       <input matInput [matDatepicker]="picker"  [(ngModel)]="startDate" required>
