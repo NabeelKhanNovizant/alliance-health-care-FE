@@ -90,6 +90,8 @@ export class MilestonePopupComponent {
       const problemModel = this.apiResponse.cases[0].problems.find(p => p.name === this.selectedProblem);
       if (problemModel) {
         const goalModel = problemModel.goals.find(g => g.name === $event.option.value);
+        console.log("Api Response", this.apiResponse);
+        console.log("Goal Model", goalModel);
         if (goalModel) {
           this.milestones = goalModel.milestones || [];
           this.filteredmilestones = this.milestones;
