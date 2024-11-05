@@ -119,7 +119,30 @@ export class PatientComponent implements OnInit {
       this.router.navigate(['/care-plan']);
     }
   }
+}
+
+loading: boolean = false;
+
+GenAiCarePlan() {
+  if (this.carePlanModel && this.carePlanModel.patient && this.carePlanModel.assessment) {
+    this.loading = true; 
+    this.patientsInfoService.getGenAiCarePlan(this.carePlanModel.assessment.id).subscribe(
+      (resp) => {
+        this.carePlanService.updateApiResponse(resp);
+        this.loading = false;
+        if (this.patients) {
+          this.router.navigate(['/care-plan']);
+        }
+      },
+      (error) => {
+        console.error('Error fetching care plan:', error);
+        this.loading = false;
+      }
+    );
   }
+}
+
+
 
   private _filterPatients(value: string): any[] {
     const filterValue = this._normalizeValue(value);
