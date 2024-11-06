@@ -51,10 +51,11 @@ export class PatientComponent implements OnInit {
   }
 
   getAllPatients(): void {
+    this.loading = true;
     this.patientsInfoService.getAllPatients().subscribe(
       (allPatients) => {
         this.patients = allPatients;
-
+        this.loading = false;
         this.filteredPatients = this.patientControl.valueChanges.pipe(
           startWith(''),
           map(value => this._filterPatients(value || ''))
