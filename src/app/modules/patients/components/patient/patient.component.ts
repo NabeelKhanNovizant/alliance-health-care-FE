@@ -66,10 +66,12 @@ export class PatientComponent implements OnInit {
     );
   }
   getAssessments(patientId: number): void {
+    this.loading = true;
     this.patientsInfoService.getAssessment(patientId).subscribe(
       (assessments) => {
+        
         this.assessments = assessments;
-  
+        this.loading = false;
         this.filteredAssessments = this.assessmentControl.valueChanges.pipe(
           startWith(''),
           map(value => this._filterAssessments(value || ''))
