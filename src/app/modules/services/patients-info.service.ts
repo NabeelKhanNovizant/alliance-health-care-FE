@@ -23,7 +23,7 @@ export class PatientsInfoService {
   }
 
   getAssessmentDetail(assessmentId: number): Observable<CarePlanRequest> {
-    const url = `${this.baseUrl}Careplan/${assessmentId}`;
+    const url = `${this.baseUrl}Assessment/${assessmentId}`;
     return this.http.get<CarePlanRequest>(url);
   }
 
@@ -32,10 +32,7 @@ export class PatientsInfoService {
     const url = `${this.baseUrl}Careplan/${assessmentId}`;
     return this.http.get<ApiResponse>(url);
   }
-  getAssessmentString(assessmentId: number): Observable<ApiResponse>{
-    const url = `${this.baseUrl}Assessments/${assessmentId}`;
-    return this.http.get<ApiResponse>(url);
-  }
+
 
   getGenAiCarePlan(assessmentId: number): Observable<ApiResponse>{
     const url = `${this.baseUrl}GenCareplan/${assessmentId}`;
