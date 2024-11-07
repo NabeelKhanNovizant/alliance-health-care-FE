@@ -11,8 +11,8 @@ export class SignInComponent {
   password: string = '';
   errorMessage: string = '';
 
-  private readonly validUserId = 'nabeel.khan@novizant.com';
-  private readonly validPassword = 'pass123';
+  private readonly validUserId = 'admin@gemteaminc.com';
+  private readonly validPassword = 'Tru3C@r3';
 
   constructor(private router: Router,) {
 
