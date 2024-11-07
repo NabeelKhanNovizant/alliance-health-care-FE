@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.router.navigate(['/patient']);
+    this.router.navigate(['/sign-in']);
   }
 
   onCanNavigate(model: CarePlanModel) {

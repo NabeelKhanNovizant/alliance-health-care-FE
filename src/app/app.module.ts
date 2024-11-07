@@ -27,6 +27,7 @@ import { GoalPopupComponent } from './modules/goal-popup/goal-popup.component';
 import { ProblemPopupComponent } from './modules/problem-popup/problem-popup.component';
 import { MilestonePopupComponent } from './modules/milestone-popup/milestone-popup.component';
 import { AssessmentPopupComponent } from './modules/assessment-popup/assessment-popup.component';
+import { SignInComponent } from './modules/sign-in/sign-in.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { AssessmentPopupComponent } from './modules/assessment-popup/assessment-
     ProblemPopupComponent,
     MilestonePopupComponent,
     AssessmentPopupComponent,
+    SignInComponent,
     
     
   ],

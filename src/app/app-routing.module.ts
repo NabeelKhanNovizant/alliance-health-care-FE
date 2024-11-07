@@ -7,6 +7,7 @@ import { CaseSelectionComponent } from './modules/case/case-selection/case-selec
 import { SelectSubProblemsComponent } from './modules/sub-problems/select-sub-problems/select-sub-problems.component';
 import { CarePlanComponent } from './modules/care-plan/care-plan/care-plan.component';
 import { PlanViewComponent } from './modules/PlanView/plan-view/plan-view.component';
+import { SignInComponent } from './modules/sign-in/sign-in.component';
 
 const routes: Routes = [
   { path: 'patient', component: PatientComponent },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'sub-problems', component: SelectSubProblemsComponent},
   { path: 'care-plan', component: CarePlanComponent },
   { path: 'plan-view', component: PlanViewComponent},
-  { path: '', redirectTo: 'patient', pathMatch: 'full' },
+  { path: 'sign-in', component: SignInComponent },
+  { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
 
 ];
 

@@ -1,0 +1,36 @@
+.sign-in-container {
+    width: 50%;
+    margin: auto;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .error {
+    color: red;
+    margin-top: 1rem;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  button {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  .btn-login{
+    width: 100px;
+  }
