@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs'; // Import Observable
 import { ApiResponse } from '../../models/api-response';
+import { CarePlanRequest } from '../../models/care-plan-request';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,12 @@ export class PatientsInfoService {
     const url = `${this.baseUrl}Assessments/${patientId}`;
     return this.http.get(url);
   }
+
+  getAssessmentDetail(assessmentId: number): Observable<CarePlanRequest> {
+    const url = `${this.baseUrl}Careplan/${assessmentId}`;
+    return this.http.get<CarePlanRequest>(url);
+  }
+
 
   getCarePlan(assessmentId: number): Observable<ApiResponse>{
     const url = `${this.baseUrl}Careplan/${assessmentId}`;
