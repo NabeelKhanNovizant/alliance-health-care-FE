@@ -9,6 +9,7 @@ import { GoalPopupComponent } from '../../goal-popup/goal-popup.component';
 import { ActivatedRoute } from '@angular/router';
 import { CarePlanService } from '../../services/care-plan-service.service';
 import { map, take } from 'rxjs/operators';
+import { AssessmentPopupComponent } from '../../assessment-popup/assessment-popup.component';
 
 
 interface TreeNode {
@@ -71,6 +72,17 @@ export class CarePlanComponent {
 
   private loadPatientData() {
     console.log('Loading patient data for ID:', this.assessmentId);
+  }
+
+  openViewAssessment(){
+    const dialogRef = this.dialog.open(AssessmentPopupComponent, {
+      width: '600px',
+      data: {}, 
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+     // console.log('Dialog closed, selected country:', result);
+    });
   }
   opeCaseDialog(): void {
     const dialogRef = this.dialog.open(CasePopupComponent, {

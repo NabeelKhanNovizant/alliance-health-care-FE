@@ -7,10 +7,18 @@
         <hr>
     <app-member-demo ></app-member-demo>
   </mat-card>
+  
   <mat-card>
-    <div class="bg-header">
-      <mat-card-title>Assessments</mat-card-title>
-      <mat-card-header>Assessment Details</mat-card-header>
+    <div class="bg-header justify-content-between d-flex">
+      <div>
+        <mat-card-title>Assessment</mat-card-title>
+        <mat-card-header>Assessment Details</mat-card-header>
+      </div>
+      <div class="d-flex">
+        <button type="button" class="btn-view-assessment gap-1" (click)="openViewAssessment()">
+          <mat-icon class="icon-view-btn">assessment</mat-icon> View Assessment
+        </button>
+      </div>
     </div>
     <hr>
     <app-assessment-details></app-assessment-details>

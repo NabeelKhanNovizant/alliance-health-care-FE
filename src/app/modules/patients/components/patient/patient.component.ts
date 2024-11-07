@@ -22,7 +22,7 @@ import { CarePlanService } from '../../../services/care-plan-service.service';
 export class PatientComponent implements OnInit {
   patientControl = new FormControl('');
   assessmentControl = new FormControl('');
-  carePlanModel: CarePlanModel = new CarePlanModel();
+    carePlanModel: CarePlanModel = new CarePlanModel();
 
   patients: Patient[] = [];  
   assessments: Assessment[] = []; 
