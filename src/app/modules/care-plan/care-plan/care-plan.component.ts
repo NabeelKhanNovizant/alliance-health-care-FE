@@ -76,7 +76,7 @@ export class CarePlanComponent {
 
   openViewAssessment(){
     const dialogRef = this.dialog.open(AssessmentPopupComponent, {
-      width: '600px',
+      width: '1200px',
       data: {}, 
     });
 
