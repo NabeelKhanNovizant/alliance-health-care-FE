@@ -133,7 +133,6 @@ export class MilestonePopupComponent {
       this.selectedgoal &&
       this.selectedmilestones &&
       this.startDate &&
-      this.endDate &&
       this.selectedActionType
     );
   }

@@ -31,7 +31,7 @@ export class GoalPopupComponent implements OnInit {
       status: ['', Validators.required],
       priority: ['', Validators.required],
       startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
+      endDate: ['']
     });
   }
 

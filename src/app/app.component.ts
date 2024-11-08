@@ -12,7 +12,7 @@ import { CarePlanModel } from './models/care-plan-model';
 })
 
 export class AppComponent implements OnInit {
-  title = 'TureCare';
+  title = 'Alliance Health AI';
 
   @ViewChild(PatientComponent) patientComponent!: PatientComponent;
   selectedCarePlanModel: CarePlanModel | null = null;

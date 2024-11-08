@@ -8,6 +8,7 @@ import { Assessment } from '../../../../models/assessment';
 import { PatientIdServiceService } from '../../../services/patient-id-service.service';
 import { Router } from '@angular/router';
 import { CarePlanService } from '../../../services/care-plan-service.service';
+import { NavigationStateService } from '../../../services/navigation-state.service';
 
 
 @Injectable({
@@ -31,9 +32,10 @@ export class PatientComponent implements OnInit {
   filteredPatients: Observable<Patient[]> | undefined;
   filteredAssessments: Observable<Assessment[]> | undefined;
   @Output() canNavigate = new EventEmitter<CarePlanModel>();
+  loading: boolean = false;
 
   constructor(private patientsInfoService: PatientsInfoService,private router: Router
-    , private carePlanService: CarePlanService
+    , private carePlanService: CarePlanService,private navigationStateService: NavigationStateService
   ) {}
 
   ngOnInit() {
@@ -108,42 +110,37 @@ export class PatientComponent implements OnInit {
   
 
   onGenrateCarePlan() {
-    if(this.carePlanModel && this.carePlanModel.patient && this.carePlanModel.assessment) {
+    if (this.carePlanModel && this.carePlanModel.patient && this.carePlanModel.assessment) {
       this.patientsInfoService.getCarePlan(this.carePlanModel.assessment.id).subscribe(
         (resp) => {
           this.carePlanService.updateApiResponse(resp);
-          
+          this.navigationStateService.setNavigationData({ calledFrom: 'ML' });
+          this.router.navigate(['/care-plan']);
         },
         (error) => {
           console.error('Error fetching care plan:', error);
         }
       );
-    if (this.patients) {
-      this.router.navigate(['/care-plan']);
     }
   }
-}
-
-loading: boolean = false;
-
-GenAiCarePlan() {
-  if (this.carePlanModel && this.carePlanModel.patient && this.carePlanModel.assessment) {
-    this.loading = true; 
-    this.patientsInfoService.getGenAiCarePlan(this.carePlanModel.assessment.id).subscribe(
-      (resp) => {
-        this.carePlanService.updateApiResponse(resp);
-        this.loading = false;
-        if (this.patients) {
+  
+  GenAiCarePlan() {
+    if (this.carePlanModel && this.carePlanModel.patient && this.carePlanModel.assessment) {
+      this.loading = true;
+      this.patientsInfoService.getGenAiCarePlan(this.carePlanModel.assessment.id).subscribe(
+        (resp) => {
+          this.carePlanService.updateApiResponse(resp);
+          this.loading = false;
+          this.navigationStateService.setNavigationData({ calledFrom: 'LLM' });
           this.router.navigate(['/care-plan']);
+        },
+        (error) => {
+          console.error('Error fetching care plan:', error);
+          this.loading = false;
         }
-      },
-      (error) => {
-        console.error('Error fetching care plan:', error);
-        this.loading = false;
-      }
-    );
+      );
+    }
   }
-}
 
 
 

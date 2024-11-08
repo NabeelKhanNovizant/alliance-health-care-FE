@@ -23,7 +23,7 @@ export class ProblemPopupComponent implements OnInit {
       problem: ['', Validators.required],
       status: ['', Validators.required],
       startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
+      endDate: ['']
     });
   }
 

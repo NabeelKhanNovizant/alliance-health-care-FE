@@ -6,10 +6,11 @@ import { CasePopupComponent } from '../../case-popup/case-popup.component';
 import { ProblemPopupComponent } from '../../problem-popup/problem-popup.component';
 import { MilestonePopupComponent } from '../../milestone-popup/milestone-popup.component';
 import { GoalPopupComponent } from '../../goal-popup/goal-popup.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CarePlanService } from '../../services/care-plan-service.service';
 import { map, take } from 'rxjs/operators';
 import { AssessmentPopupComponent } from '../../assessment-popup/assessment-popup.component';
+import { NavigationStateService } from '../../services/navigation-state.service';
 
 
 interface TreeNode {
@@ -40,6 +41,10 @@ interface ExampleFlatNode {
 export class CarePlanComponent {
   assessmentId!: number;
 
+
+  calledFrom: 'ML' | 'LLM' | null = null;
+
+
   readonly panelOpenState = signal(false);
   hasCaseName$ = this.carePlanService.currentCarePlanModel.pipe(
     map((carePlanModel) => !!carePlanModel?.caseName)
@@ -58,10 +63,16 @@ export class CarePlanComponent {
     )
   );
   
-
-  constructor(private dialog: MatDialog,private route: ActivatedRoute,private carePlanService: CarePlanService) {
+  constructor(private dialog: MatDialog,private route: ActivatedRoute,private carePlanService: CarePlanService,
+    private routing: Router,private navigationStateService: NavigationStateService
+  ) {
   }
   ngOnInit() {
+    const navigationData = this.navigationStateService.getNavigationData();
+    this.calledFrom = navigationData?.calledFrom || null;
+    console.log('calledFrom:', this.calledFrom);
+    this.navigationStateService.clearNavigationData(); 
+
     this.route.params.subscribe(params => {
       this.assessmentId = params['id'];
       if (this.assessmentId) {

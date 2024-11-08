@@ -28,19 +28,23 @@
 <div class="body">
   <mat-card class="care-mang">
     <div class="bg-header d-flex justify-content-between">
-      <mat-card-title>Enhanced Care Management</mat-card-title>
+      <div>
+        <mat-card-title>Enhanced Care Management</mat-card-title>
+        <mat-card-subtitle *ngIf="calledFrom === 'ML'">Care Plan Generated using ML</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="calledFrom === 'LLM'">Care Plan Generated using LLM</mat-card-subtitle>
+      </div>
+
       <div class="d-flex gap-1">
         <button type="button" class="btn-add">
-          <mat-icon class="icon-add-btn" (click)="opeCaseDialog()">add
-          </mat-icon>
+          <mat-icon class="icon-add-btn" (click)="opeCaseDialog()">add</mat-icon>
         </button>
-        
       </div>
     </div>
     <hr>
     <app-care-management></app-care-management>
   </mat-card>
 </div>
+
 <div class="body d-flex gap-3">
   <mat-card class="card-prob">
     <div class="bg-header d-flex justify-content-between">
