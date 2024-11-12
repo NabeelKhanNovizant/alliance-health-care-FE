@@ -142,6 +142,23 @@ export class PatientComponent implements OnInit {
     }
   }
 
+  OpenAiCarePlan() {
+    if (this.carePlanModel && this.carePlanModel.patient && this.carePlanModel.assessment) {
+      this.loading = true;
+      this.patientsInfoService.getOpenAICarePlan(this.carePlanModel.assessment.id).subscribe(
+        (resp) => {
+          this.carePlanService.updateApiResponse(resp);
+          this.loading = false;
+          this.navigationStateService.setNavigationData({ calledFrom: 'OpenAI' });
+          this.router.navigate(['/care-plan']);
+        },
+        (error) => {
+          console.error('Error fetching care plan:', error);
+          this.loading = false;
+        }
+      );
+    }
+  }
 
 
   private _filterPatients(value: string): any[] {

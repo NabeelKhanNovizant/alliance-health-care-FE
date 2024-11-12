@@ -42,7 +42,7 @@ export class CarePlanComponent {
   assessmentId!: number;
 
 
-  calledFrom: 'ML' | 'LLM' | null = null;
+  calledFrom: 'ML' | 'LLM' | 'OpenAI' | null = null;
 
 
   readonly panelOpenState = signal(false);

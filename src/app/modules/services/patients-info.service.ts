@@ -38,5 +38,10 @@ export class PatientsInfoService {
     const url = `${this.baseUrl}GenCareplan/${assessmentId}`;
     return this.http.get<ApiResponse>(url);
   }
+
+  getOpenAICarePlan(assessmentId: number): Observable<ApiResponse>{
+    const url = `${this.baseUrl}OpenAiCareplan/${assessmentId}`;
+    return this.http.get<ApiResponse>(url);
+  }
   
 }

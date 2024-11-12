@@ -56,5 +56,6 @@
     <div class="d-flex justify-content-center gap-3">
       <button type="button" class="btn-gn-care" (click)="onGenrateCarePlan()" *ngIf="selectedPatient && selectedAssessment">Generate Care Plan using ML</button>
       <button type="button" class="btn-gn-care" (click)="GenAiCarePlan()" *ngIf="selectedPatient && selectedAssessment">Generate Care Plan using LLM</button>
+      <button type="button" class="btn-gn-care" (click)="OpenAiCarePlan()" *ngIf="selectedPatient && selectedAssessment">Generate Care Plan using OpenAI</button>
     </div>
 </div>
