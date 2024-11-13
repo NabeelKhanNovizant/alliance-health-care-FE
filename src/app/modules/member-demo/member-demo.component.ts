@@ -26,7 +26,9 @@ export class MemberDemoComponent implements OnInit {
 
   constructor(
     private carePlanService: CarePlanService,
-    private patientsInfoService: PatientsInfoService
+    private patientsInfoService: PatientsInfoService,
+    private cdRef: ChangeDetectorRef
+
   ) {}
 
   ngOnInit() {
@@ -39,10 +41,14 @@ export class MemberDemoComponent implements OnInit {
 
   getAllPatients(): void {
     this.loading = true;
+    this.cdRef.detectChanges(); 
+
     this.patientsInfoService.getAllPatients().subscribe(
       (allPatients) => {
         this.patients = allPatients;
         this.loading = false;
+        this.cdRef.detectChanges(); 
+
         this.filteredPatients = this.patientControl.valueChanges.pipe(
           startWith(''),
           map(value => this._filterPatients(value || ''))

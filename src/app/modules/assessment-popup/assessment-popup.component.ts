@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PatientsInfoService } from '../services/patients-info.service';
 import { CarePlanModel } from '../../models/care-plan-model';
 import { CarePlanService } from '../services/care-plan-service.service';
@@ -16,13 +16,15 @@ export class AssessmentPopupComponent implements OnInit {
 
   constructor(
     private patientsInfoService: PatientsInfoService,
-    private currentCarePlan: CarePlanService
+    private currentCarePlan: CarePlanService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.currentCarePlan.currentCarePlanModel.subscribe((model) => {
       if (model) {
         this.carePlanModel = model;
+        console.log("Current care plan model:", this.carePlanModel);
       }
     });
     this.getAssessmentDetails();
@@ -34,7 +36,8 @@ export class AssessmentPopupComponent implements OnInit {
       this.patientsInfoService.getAssessmentDetail(assessmentId).subscribe(
         (assessment) => {
           this.assessmentDetails = assessment; 
-          console.log("Assessment details:", this.assessmentDetails);
+          this.cdr.detectChanges();
+
         },
         (error) => {
           console.error("Failed to fetch assessment details", error);
