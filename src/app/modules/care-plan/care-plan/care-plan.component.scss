@@ -133,3 +133,16 @@
     font-size: 1.5rem;
     color: #007bff; /* Customize loader text color */
   }
+
+  .snackbar-error {
+    background-color: #f44336; 
+    color: #ffffff; 
+    display: flex;
+    align-items: center;
+  }
+  
+  .snackbar-error .mat-icon {
+    margin-right: 8px; 
+    color: #ffffff; 
+  }
+  

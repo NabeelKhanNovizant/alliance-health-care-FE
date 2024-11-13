@@ -13,6 +13,7 @@ import { AssessmentPopupComponent } from '../../assessment-popup/assessment-popu
 import { NavigationStateService } from '../../services/navigation-state.service';
 import { CarePlanModel } from '../../../models/care-plan-model';
 import { PatientsInfoService } from '../../services/patients-info.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-care-plan',
   templateUrl: './care-plan.component.html',
@@ -49,7 +50,8 @@ export class CarePlanComponent {
   constructor(private dialog: MatDialog,private route: ActivatedRoute,private carePlanService: CarePlanService,
     private routing: Router,private navigationStateService: NavigationStateService,
     private patientsInfoService: PatientsInfoService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private snackBar: MatSnackBar
   ) {
   }
   ngOnInit() {
@@ -66,9 +68,16 @@ export class CarePlanComponent {
       }
     });
   }
+  openErrorSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: ['snackbar-error'],
+    });
+  }
 
-  onGenrateCarePlan() {
+  onGenerateCarePlan() {
     this.showCarePlanInfo = true; 
+    this.calledFrom = "ML";
     if (this.newCareplaModel && this.newCareplaModel?.patient && this.newCareplaModel?.assessment) {
       this.loading = true;
       this.cdRef.detectChanges(); 
@@ -76,20 +85,22 @@ export class CarePlanComponent {
         (resp) => {
           this.carePlanService.updateApiResponse(resp);
           this.loading = false;
-          this.calledFrom = "ML";
-          this.cdRef.detectChanges(); 
+          this.cdRef.detectChanges();
+                    
         },
         (error) => {
           console.error('Error fetching care plan:', error);
+          this.openErrorSnackBar('Failed to generate care plan');
           this.loading = false;
           this.cdRef.detectChanges(); 
         }
       );
     }
   }
-
+  
   GenAiCarePlan() {
     this.showCarePlanInfo = true; 
+    this.calledFrom = "LLM";
     if (this.newCareplaModel && this.newCareplaModel?.patient && this.newCareplaModel?.assessment) {
       this.loading = true;
       this.cdRef.detectChanges(); 
@@ -98,20 +109,21 @@ export class CarePlanComponent {
           this.carePlanService.updateApiResponse(resp);
           this.loading = false;
           this.cdRef.detectChanges(); 
-          this.calledFrom = "LLM";
-
+          
         },
         (error) => {
           console.error('Error fetching care plan:', error);
+          this.openErrorSnackBar('Failed to generate AI care plan');
           this.loading = false;
           this.cdRef.detectChanges(); 
         }
       );
     }
   }
-
+  
   OpenAiCarePlan() {
-    this.showCarePlanInfo = true; 
+    this.showCarePlanInfo = true;
+    this.calledFrom = "OpenAI"; 
     if (this.newCareplaModel && this.newCareplaModel?.patient && this.newCareplaModel?.assessment) {
       this.loading = true;
       this.cdRef.detectChanges(); 
@@ -120,12 +132,11 @@ export class CarePlanComponent {
           this.carePlanService.updateApiResponse(resp);
           this.loading = false;
           this.cdRef.detectChanges(); 
-          this.calledFrom = "OpenAI";
           
-           
         },
         (error) => {
           console.error('Error fetching care plan:', error);
+          this.openErrorSnackBar('Failed to generate OpenAI care plan');
           this.loading = false;
           this.cdRef.detectChanges(); 
         }
