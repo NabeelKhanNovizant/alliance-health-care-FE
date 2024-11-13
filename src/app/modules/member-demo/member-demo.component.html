@@ -1,23 +1,49 @@
+<!-- <div *ngIf="loading" class="loader-overlay">
+    <mat-spinner></mat-spinner>
+  </div> -->
 <div class="container">
-    <div class="row">
+    <form class="example-form d-flex justify-content-center">
+        <mat-form-field class="example-full-width">
+          <mat-label>Search for a Patient</mat-label>
+          <input matInput
+                 [formControl]="patientControl"
+                 [matAutocomplete]="autoPatient"
+                 class="formControl">
+                 <mat-autocomplete #autoPatient="matAutocomplete" 
+                 (optionSelected)="onPatientSelected($event.option.value)" 
+                 [displayWith]="displayPatient">
+                  <mat-option *ngFor="let patient of filteredPatients | async; let isLast = last" [value]="patient">
+                    {{ patient.firstName + ' ' + patient.lastName }}
+                  </mat-option>
+                </mat-autocomplete>
+                
+          <button mat-icon-button matSuffix *ngIf="patientControl.value" (click)="clearSelection()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+    <div class="row" *ngIf="this.newcarePlanModel?.patient">
         <!-- First Column: Contains details up to Date of Birth -->
         <div class="col-md-6">
-            
             <div class="detail">
                 <mat-icon>person</mat-icon>
                 <span>Name:</span>
-                <p>{{ patient?.firstName + ' ' + patient?.lastName }}</p>
+                <p *ngIf="patientdetails && (patientdetails.firstName || patientdetails.lastName)">
+                    {{ (patientdetails.firstName || '') + ' ' + (patientdetails.lastName || '') }}
+                  </p>
+                  
             </div>
             <div class="detail">
                 <mat-icon>cake</mat-icon>
                 <span>Date Of Birth:</span>
-                <p>{{this.patient?.dob | date: 'MM/dd/yyyy' }}</p>
+                <p>{{ patientdetails?.dob | date: 'MM/dd/yyyy' }}</p>
             </div>
             <div class="detail">
-                <mat-icon *ngIf="this.patient?.gender == 'Male' ">male</mat-icon>
-                <mat-icon *ngIf="this.patient?.gender == 'Female' ">female</mat-icon>
+                <mat-icon *ngIf="patientdetails?.gender == 'Male' ">male</mat-icon>
+                <mat-icon *ngIf="patientdetails?.gender == 'Female' ">female</mat-icon>
+                <mat-icon *ngIf="patientdetails?.gender == null">people</mat-icon>
                 <span>Gender:</span>
-                <p>{{this.patient?.gender}}</p>
+                <p>{{ patientdetails?.gender }}</p>
             </div>
         </div>
 
@@ -26,21 +52,18 @@
             <div class="detail">
                 <mat-icon>favorite</mat-icon>
                 <span>Marital Status:</span>
-                <p>{{this.patient?.maritalStatus}}</p>
+                <p>{{ patientdetails?.maritalStatus }}</p>
             </div>
             <div class="detail">
                 <mat-icon>phone</mat-icon>
                 <span>Primary Phone:</span>
-                <p>{{this.patient?.primaryPhone}}</p>
+                <p>{{ patientdetails?.primaryPhone }}</p>
             </div>
             <div class="detail">
                 <mat-icon>email</mat-icon>
                 <span>Email:</span>
-                <p>{{this.patient?.email}}</p>
+                <p>{{ patientdetails?.email }}</p>
             </div>
-            
-            
         </div>
     </div>
 </div>
-

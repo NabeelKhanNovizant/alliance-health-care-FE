@@ -1,5 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
 import { CasePopupComponent } from '../../case-popup/case-popup.component';
@@ -11,26 +11,8 @@ import { CarePlanService } from '../../services/care-plan-service.service';
 import { map, take } from 'rxjs/operators';
 import { AssessmentPopupComponent } from '../../assessment-popup/assessment-popup.component';
 import { NavigationStateService } from '../../services/navigation-state.service';
-
-
-interface TreeNode {
-  name: string;
-  children?: TreeNode[];
-}
-
-interface FlatNode {
-  expandable: boolean;
-  name: string;
-  level: number;
-  checked?: boolean;
-}
-
-/** Flat node with expandable and level information */
-interface ExampleFlatNode {
-  expandable: boolean;
-  name: string;
-  level: number;
-}
+import { CarePlanModel } from '../../../models/care-plan-model';
+import { PatientsInfoService } from '../../services/patients-info.service';
 @Component({
   selector: 'app-care-plan',
   templateUrl: './care-plan.component.html',
@@ -40,10 +22,11 @@ interface ExampleFlatNode {
 })
 export class CarePlanComponent {
   assessmentId!: number;
-
-
-  calledFrom: 'ML' | 'LLM' | 'OpenAI' | null = null;
-
+  carePlanModel: CarePlanModel = new CarePlanModel();
+  newCareplaModel: CarePlanModel | null = null;
+  calledFrom: string | null = null;
+  loading: boolean = false;
+  showCarePlanInfo = false;
 
   readonly panelOpenState = signal(false);
   hasCaseName$ = this.carePlanService.currentCarePlanModel.pipe(
@@ -64,15 +47,18 @@ export class CarePlanComponent {
   );
   
   constructor(private dialog: MatDialog,private route: ActivatedRoute,private carePlanService: CarePlanService,
-    private routing: Router,private navigationStateService: NavigationStateService
+    private routing: Router,private navigationStateService: NavigationStateService,
+    private patientsInfoService: PatientsInfoService,
+    private cdRef: ChangeDetectorRef
   ) {
   }
   ngOnInit() {
-    const navigationData = this.navigationStateService.getNavigationData();
-    this.calledFrom = navigationData?.calledFrom || null;
-    console.log('calledFrom:', this.calledFrom);
-    this.navigationStateService.clearNavigationData(); 
+    
 
+    this.carePlanService.currentCarePlanModel.subscribe((model) => {
+      this.newCareplaModel = model;
+      console.log('CarePlanModelincare:', this.carePlanModel);
+    });
     this.route.params.subscribe(params => {
       this.assessmentId = params['id'];
       if (this.assessmentId) {
@@ -81,6 +67,71 @@ export class CarePlanComponent {
     });
   }
 
+  onGenrateCarePlan() {
+    this.showCarePlanInfo = true; 
+    if (this.newCareplaModel && this.newCareplaModel?.patient && this.newCareplaModel?.assessment) {
+      this.loading = true;
+      this.cdRef.detectChanges(); 
+      this.patientsInfoService.getCarePlan(this.newCareplaModel?.assessment.id).subscribe(
+        (resp) => {
+          this.carePlanService.updateApiResponse(resp);
+          this.loading = false;
+          this.calledFrom = "ML";
+          this.cdRef.detectChanges(); 
+        },
+        (error) => {
+          console.error('Error fetching care plan:', error);
+          this.loading = false;
+          this.cdRef.detectChanges(); 
+        }
+      );
+    }
+  }
+
+  GenAiCarePlan() {
+    this.showCarePlanInfo = true; 
+    if (this.newCareplaModel && this.newCareplaModel?.patient && this.newCareplaModel?.assessment) {
+      this.loading = true;
+      this.cdRef.detectChanges(); 
+      this.patientsInfoService.getGenAiCarePlan(this.newCareplaModel?.assessment.id).subscribe(
+        (resp) => {
+          this.carePlanService.updateApiResponse(resp);
+          this.loading = false;
+          this.cdRef.detectChanges(); 
+          this.calledFrom = "LLM";
+
+        },
+        (error) => {
+          console.error('Error fetching care plan:', error);
+          this.loading = false;
+          this.cdRef.detectChanges(); 
+        }
+      );
+    }
+  }
+
+  OpenAiCarePlan() {
+    this.showCarePlanInfo = true; 
+    if (this.newCareplaModel && this.newCareplaModel?.patient && this.newCareplaModel?.assessment) {
+      this.loading = true;
+      this.cdRef.detectChanges(); 
+      this.patientsInfoService.getOpenAICarePlan(this.newCareplaModel?.assessment.id).subscribe(
+        (resp) => {
+          this.carePlanService.updateApiResponse(resp);
+          this.loading = false;
+          this.cdRef.detectChanges(); 
+          this.calledFrom = "OpenAI";
+          
+           
+        },
+        (error) => {
+          console.error('Error fetching care plan:', error);
+          this.loading = false;
+          this.cdRef.detectChanges(); 
+        }
+      );
+    }
+  }
   private loadPatientData() {
     console.log('Loading patient data for ID:', this.assessmentId);
   }

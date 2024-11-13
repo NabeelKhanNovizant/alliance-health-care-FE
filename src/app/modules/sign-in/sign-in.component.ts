@@ -19,7 +19,7 @@ export class SignInComponent {
   }
   onSubmit() {
     if (this.userId === this.validUserId && this.password === this.validPassword) {
-    this.router.navigate(['/patient']);
+    this.router.navigate(['/care-plan']);
     this.errorMessage = '';
     } else {
       this.errorMessage = 'Invalid User ID or Password';

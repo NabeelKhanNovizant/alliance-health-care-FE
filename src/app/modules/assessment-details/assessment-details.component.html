@@ -1,19 +1,43 @@
+<!-- <div *ngIf="loading" class="loader-overlay">
+    <mat-spinner></mat-spinner>
+</div> -->
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="detail">
-                <span>Status:</span>
-                <p>{{this.assessment?.status}}</p>
-            </div>
-            <div class="col-lg-2 detail">
-                <span>Name:</span>
-                <p>{{this.assessment?.screenName}}</p>
-            </div>
-            <div class="detail">
-                <span>Last Updated Date:</span>
-                <p>{{this.assessment?.assesmentDate | date: 'MM/dd/yyyy'}}</p>
-            </div>
-            
+    <form class="example-form d-flex justify-content-center" *ngIf="this.carePlanModel?.patient">
+      <!-- Assessment Dropdown -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Search for an assessment</mat-label>
+        <input matInput
+               [formControl]="assessmentControl"
+               [matAutocomplete]="autoAssessment"
+               class="formControl"
+               >
+        <mat-autocomplete #autoAssessment="matAutocomplete" 
+                          (optionSelected)="onAssessmentSelected($event.option.value)"
+                          [displayWith]="displayAssessment">
+          <mat-option *ngFor="let assessment of filteredAssessments | async" [value]="assessment">
+            {{ assessment.screenName }} | {{ assessment.assesmentDate | date: 'MM/dd/yyyy' }}
+          </mat-option>
+        </mat-autocomplete>
+        <button mat-icon-button matSuffix *ngIf="assessmentControl.value" (click)="clearSelection()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+    <div class="row" *ngIf="this.carePlanModel?.assessment">
+      <div class="col-md-6">
+        <div class="detail">
+          <span>Status:</span>
+          <p>{{ this.assessmentdetails?.status }}</p>
         </div>
+        <div class="col-lg-2 detail">
+          <span>Name:</span>
+          <p>{{ this.assessmentdetails?.screenName }}</p>
+        </div>
+        <div class="detail">
+          <span>Last Updated Date:</span>
+          <p>{{ this.assessmentdetails?.assesmentDate | date: 'MM/dd/yyyy' }}</p>
+        </div>
+      </div>
     </div>
 </div>
+  
